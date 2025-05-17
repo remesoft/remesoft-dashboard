@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #1e40af;
+  --color-accent: #f472b6;
+}
+
+@layer base {
+  [data-theme="light"] {
+    --color-primary: #1e40af;
+    --color-accent: #f472b6;
+  }
+
+  [data-theme="dark"] {
+    --color-primary: #0f172a;
+    --color-accent: #f43f5e;
+  }
+
+  [data-theme="pastel"] {
+    --color-primary: #a78bfa;
+    --color-accent: #fbcfe8;
+  }
+}

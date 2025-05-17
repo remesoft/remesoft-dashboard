@@ -1,13 +1,15 @@
 import React from "react";
 import { useAppSelector } from "../hooks"; // adjust path as needed
+import { useTranslation } from "react-i18next";
 
 const Name: React.FC = () => {
+  const { t } = useTranslation();
   const { headingSize, paragraphSize } = useAppSelector((state) => state.theme);
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4 p-4">
       <h2 className={`${headingSize} font-bold`}>User Name Heading</h2>
-      <p className={`${paragraphSize}`}>This paragraph inherits font size from Redux state.</p>
+      <p className={`${paragraphSize}`}>{t("welcome")}</p>
     </div>
   );
 };

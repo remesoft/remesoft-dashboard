@@ -1,12 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router";
+import Header from "../components/Header";
 
 const Dashboard: React.FC = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
-      <Outlet />
-    </div>
+    <main data-theme="pastel">
+      <Header />
+    </main>
   );
 };
 

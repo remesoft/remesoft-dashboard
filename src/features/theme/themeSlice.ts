@@ -1,5 +1,5 @@
 // src/features/font/fontSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ThemeState {
   headingSize: string;
@@ -7,12 +7,12 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  headingSize: 'text-2xl',
-  paragraphSize: 'text-base',
+  headingSize: "text-2xl",
+  paragraphSize: "text-base",
 };
 
 const theme = createSlice({
-  name: 'font',
+  name: "font",
   initialState,
   reducers: {
     setHeadingSize: (state, action: PayloadAction<string>) => {
