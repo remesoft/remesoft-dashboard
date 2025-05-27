@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../layout/dashboard";
+import Dashboard from "../layout/Dashboard";
 import Home from "../pages/Home";
 
 // import AdminTemplate from "../pages/templates/AdminTemplate";

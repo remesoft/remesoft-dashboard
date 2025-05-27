@@ -1,9 +1,9 @@
-import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { decrement, increment } from './counterSlice';
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { decrement, increment } from "./counterSlice";
 
 const Counter: React.FC = () => {
-  const count = useAppSelector(state => state.counter.value);
+  const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
 
   return (

@@ -1,10 +1,6 @@
 // src/features/font/fontSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface ThemeState {
-  headingSize: string;
-  paragraphSize: string;
-}
+import { ThemeState } from "../../types";
 
 const initialState: ThemeState = {
   headingSize: "text-2xl",
