@@ -33,3 +33,13 @@ export interface AppEvents {
 export interface headerSearchProps extends componentProps {
   onClick?: () => void;
 }
+
+// title bar props
+export interface breadcrumbsType {
+  label: string;
+  link: string;
+}
+export interface titleBarProps {
+  title: string;
+  breadcrumbs: breadcrumbsType[];
+}

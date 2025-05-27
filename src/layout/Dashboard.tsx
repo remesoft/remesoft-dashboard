@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { Outlet } from "react-router";
+import TitleBar from "../components/Titlebar";
 
 const MainContent = () => (
   <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
@@ -21,7 +22,7 @@ const Dashboard = () => {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
+        <main className="flex-1 overflow-y-auto bg-gray-100">
           <div className="space-y-4">
             <Outlet />
           </div>

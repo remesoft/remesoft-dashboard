@@ -17,6 +17,11 @@
   --color-active-sidebar-menu-background: #188ae21a;
   --color-active-sidebar-menu-content: #188ae2;
   --color-sidebar-menu-item: #6c757d;
+
+  /* color for text */
+  --color-heading: #4c4c5c;
+  --color-details: #9ba6b7;
+  --color-active: #188ae2;
 }
 
 @layer base {
