@@ -1,13 +1,8 @@
-import { BrowserRouter } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../layout/Dashboard";
 import Home from "../pages/Home";
-
-// import AdminTemplate from "../pages/templates/AdminTemplate";
-// import Login from "../pages/admin/Login";
-// import Products from "../pages/admin/Products";
-// import Books from "../pages/admin/Books";
-// import Orders from "../pages/admin/Orders";
+import CreateBook from "../pages/brain_bank/CreateBook";
+import Test from "../layout/Test";
 
 const routes = createBrowserRouter([
   {
@@ -17,6 +12,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/brain-bank/create-book",
+        element: <CreateBook />,
       },
       //   {
       //     path: "/products",
@@ -31,6 +30,10 @@ const routes = createBrowserRouter([
       //     element: <Books />,
       //   },
     ],
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ]);
 

@@ -20,38 +20,20 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`${isMenuOpen ? "" : "-translate-x-full"} sidebar bg-foreground absolute flex h-screen w-72 flex-col gap-4 transition ease-in-out lg:static lg:translate-0`}
+      className={`${isMenuOpen ? "" : "-translate-x-full"} sidebar bg-foreground absolute flex h-screen w-72 shrink-[0] flex-col gap-4 transition ease-in-out lg:static lg:translate-0`}
     >
       <section className="bg-header flex items-center justify-between px-4 py-4">
         <img src={logo} className="h-6" alt="Company Logo" />
-        <button
-          onClick={() => dispatch(toggleMenu())}
-          className="text-white lg:invisible"
-        >
+        <button onClick={() => dispatch(toggleMenu())} className="text-white lg:invisible">
           <IconButton icon={MultiplicationSignFreeIcons} />
         </button>
       </section>
       <section className="px-4">
         <h4 className="mb-2 text-sm text-gray-500">Dashboards</h4>
         <ul className="flex flex-col gap-1">
-          <SidebarMenuItem
-            icon={Book03FreeIcons}
-            isActive={true}
-            label="Brain Bank"
-            link="/"
-          />
-          <SidebarMenuItem
-            icon={BabyBoyDressFreeIcons}
-            isActive={true}
-            label="ZSon Fashion"
-            link="/something"
-          />
-          <SidebarMenuItem
-            icon={TeacherFreeIcons}
-            isActive={true}
-            label="Tutorhub"
-            link="/something"
-          />
+          <SidebarMenuItem icon={Book03FreeIcons} isActive={true} label="Brain Bank" link="/brain-bank" />
+          <SidebarMenuItem icon={BabyBoyDressFreeIcons} isActive={true} label="ZSon Fashion" link="/something" />
+          <SidebarMenuItem icon={TeacherFreeIcons} isActive={true} label="Tutorhub" link="/something" />
         </ul>
       </section>
       <section className="px-4">
@@ -61,38 +43,13 @@ const Sidebar: React.FC = () => {
             icon={PlusSignCircleFreeIcons}
             isActive={true}
             label="Create Book"
-            link="/something"
+            link="/brain-bank/create-book"
           />
-          <SidebarMenuItem
-            icon={Book04FreeIcons}
-            isActive={true}
-            label="ICT MCQ Skills"
-            link="/something"
-          />
-          <SidebarMenuItem
-            icon={Book04FreeIcons}
-            isActive={true}
-            label="Bangla First Paper"
-            link="/something"
-          />
-          <SidebarMenuItem
-            icon={Book04FreeIcons}
-            isActive={true}
-            label="Bangla Second Paper"
-            link="/something"
-          />
-          <SidebarMenuItem
-            icon={Book04FreeIcons}
-            isActive={true}
-            label="Physics First Paper"
-            link="/something"
-          />
-          <SidebarMenuItem
-            icon={Book04FreeIcons}
-            isActive={true}
-            label="Physics Second Paper"
-            link="/something"
-          />
+          <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="ICT MCQ Skills" link="/something" />
+          <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Bangla First Paper" link="/something" />
+          <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Bangla Second Paper" link="/something" />
+          <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Physics First Paper" link="/something" />
+          <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Physics Second Paper" link="/something" />
         </ul>
       </section>
     </aside>
