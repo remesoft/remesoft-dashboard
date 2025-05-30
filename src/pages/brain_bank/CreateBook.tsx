@@ -39,7 +39,7 @@ const CreateBook: React.FC = () => {
         dragConstraints={constraints}
         className="flex w-fit cursor-grab gap-2 p-4 active:cursor-grabbing"
       >
-        {Array.from({ length: 15 }).map((_, i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="flex h-40 w-40 shrink-0 items-center justify-center bg-red-300">
             box
           </div>
