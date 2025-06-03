@@ -21,7 +21,7 @@ const Dashboard = () => {
       <Sidebar />
       <div className="flex w-full flex-col overflow-hidden">
         <Header />
-        <main className="bg-background flex-grow overflow-hidden">
+        <main className="bg-base flex-grow overflow-hidden">
           <Outlet />
         </main>
       </div>

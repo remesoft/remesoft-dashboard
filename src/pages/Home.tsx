@@ -1,5 +1,5 @@
 import React from "react";
-import TitleBar from "../components/Titlebar";
+// import TitleBar from "../components/Titlebar";
 
 const Home: React.FC = () => {
   // page title and breadcrumbs
@@ -11,11 +11,7 @@ const Home: React.FC = () => {
 
   // Override default props with props passed to the component
 
-  return (
-    <React.Fragment>
-      <TitleBar title={pageTitle} breadcrumbs={pageBreadcrumbs} />
-    </React.Fragment>
-  );
+  return <React.Fragment>{/* <TitleBar title={pageTitle} breadcrumbs={pageBreadcrumbs} /> */}</React.Fragment>;
 };
 
 export default Home;

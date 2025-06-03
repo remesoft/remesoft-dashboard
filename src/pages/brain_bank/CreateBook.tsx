@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import TitleBar from "../../components/Titlebar";
+import TitleBar from "@/components/TitleBar";
+import BookDetails from "@/components/brain-bank/BookDetails";
+import Chapter from "@/components/brain-bank/Chapter";
+import Groups from "@/components/brain-bank/Group";
 
 const CreateBook: React.FC = () => {
   const pageTitle = "Dashboard";
@@ -30,20 +33,22 @@ const CreateBook: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-full w-full overflow-hidden" ref={containerRef}>
+    <div
+      className="text-text-primary h-full w-full overflow-hidden"
+      ref={containerRef}
+    >
       <TitleBar title={pageTitle} breadcrumbs={pageBreadcrumbs} />
       <motion.div
         drag="x"
         ref={contentRef}
         dragElastic={0.1}
         dragConstraints={constraints}
-        className="flex w-fit cursor-grab gap-2 p-4 active:cursor-grabbing"
+        className="flex w-fit cursor-grab items-start gap-2 p-4 active:cursor-grabbing"
       >
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex h-40 w-40 shrink-0 items-center justify-center bg-red-300">
-            box
-          </div>
-        ))}
+        {/* book details  */}
+        <BookDetails />
+        <Chapter />
+        <Groups />
       </motion.div>
     </div>
   );

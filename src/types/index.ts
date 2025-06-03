@@ -43,3 +43,43 @@ export interface titleBarProps {
   title: string;
   breadcrumbs: breadcrumbsType[];
 }
+
+// text input props
+export interface TextInputProps extends componentProps {
+  icon?: IconSvgElement;
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+// book information props
+export interface BookInformationProps {
+  createdAt: string;
+  updatedAt: string;
+  published: boolean;
+  chapters: number;
+  groups: number;
+}
+
+// meta bar props
+export interface MetaBarProps {
+  value: number;
+  message: string;
+}
+
+// chapter header props
+export interface ChapterHeaderOptionsType {
+  label: string;
+  icon: IconSvgElement;
+  onClick?: () => void;
+}
+
+export interface ChapterHeaderProps {
+  name: string;
+  options: ChapterHeaderOptionsType[];
+}
+
+export interface OptionProps {
+  isSelected: boolean;
+  disabled?: boolean;
+}

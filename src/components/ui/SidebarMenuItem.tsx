@@ -1,23 +1,15 @@
-import { HugeiconsIcon } from "@hugeicons/react";
 import React from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { NavLink } from "react-router-dom";
 import { SidebarMenuItemProps } from "../../types";
-import { useAppSelector } from "../../hooks";
-import { NavLink } from "react-router";
 
-const SidebarMenuItem: React.FC<SidebarMenuItemProps> = (props) => {
-  return (
-    <li>
-      <NavLink
-        to={props.link}
-        className={({ isActive }) =>
-          [isActive && "active", "sidebar_menu_item"].filter(Boolean).join(" ")
-        }
-      >
-        <HugeiconsIcon icon={props.icon} />
-        {props.label}
-      </NavLink>
-    </li>
-  );
-};
+const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ link, icon, label }) => (
+  <li>
+    <NavLink to={link} className={({ isActive }) => `sidebar-menu-item ${isActive ? "active" : ""}`}>
+      <HugeiconsIcon icon={icon} />
+      {label}
+    </NavLink>
+  </li>
+);
 
 export default SidebarMenuItem;
