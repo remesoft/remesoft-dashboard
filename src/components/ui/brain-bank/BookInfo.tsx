@@ -1,4 +1,4 @@
-import { BookInformationProps } from "@/types";
+import { BookInformationProps } from "@/types/brain-bank/props-type";
 import {
   Book04FreeIcons,
   Calendar03FreeIcons,
@@ -29,7 +29,9 @@ const BookInfo: React.FC<BookInformationProps> = (props) => {
           <HugeiconsIcon icon={CheckmarkBadge01FreeIcons} className="h-5 w-5" />
           Status
         </p>
-        <p className={`${statusClass} py-1`}>: {props.published ? "Published" : "Unpublished"}</p>
+        <p className={`${statusClass} py-1`}>
+          : {props.published ? "Published" : "Unpublished"}
+        </p>
         <p className="flex items-center gap-2">
           <HugeiconsIcon icon={Book04FreeIcons} className="h-5 w-5" />
           Chapters

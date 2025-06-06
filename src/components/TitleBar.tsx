@@ -1,5 +1,5 @@
 import React from "react";
-import { titleBarProps } from "../types";
+import { titleBarProps } from "../types/brain-bank/props-type";
 
 const TitleBar: React.FC<titleBarProps> = (props) => {
   return (
@@ -12,7 +12,10 @@ const TitleBar: React.FC<titleBarProps> = (props) => {
             {index === props.breadcrumbs.length - 1 ? (
               <span className="text-muted text-md">{breadcrumb.label}</span>
             ) : (
-              <a href={breadcrumb.link} className="text-primary hover:text-highlight text-md hover:text-active">
+              <a
+                href={breadcrumb.link}
+                className="text-primary hover:text-highlight text-md hover:text-active"
+              >
                 {breadcrumb.label}
               </a>
             )}

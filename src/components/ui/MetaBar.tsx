@@ -1,4 +1,4 @@
-import { MetaBarProps } from "@/types";
+import { MetaBarProps } from "@/types/brain-bank/props-type";
 import React from "react";
 
 const MetaBar: React.FC<MetaBarProps> = (props) => {

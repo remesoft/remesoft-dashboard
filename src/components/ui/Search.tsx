@@ -4,7 +4,7 @@ import {
   CommandFreeIcons,
   Search01FreeIcons,
 } from "@hugeicons/core-free-icons";
-import { headerSearchProps } from "../../types";
+import { headerSearchProps } from "../../types/brain-bank/props-type";
 
 const Search: React.FC<headerSearchProps> = (props) => {
   return (

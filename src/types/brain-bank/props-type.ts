@@ -1,4 +1,6 @@
 import { IconSvgElement } from "@hugeicons/react";
+import { GroupType, QuestionType } from "./data-type";
+import { ExpanderIcon } from "@hugeicons/core-free-icons";
 
 // common props for components
 export interface componentProps {
@@ -79,7 +81,37 @@ export interface ChapterHeaderProps {
   options: ChapterHeaderOptionsType[];
 }
 
-export interface OptionProps {
-  isSelected: boolean;
-  disabled?: boolean;
+// chapter props
+export interface ChapterListItemProps {
+  id: number;
+  name: string;
+  groups: GroupType[];
+}
+
+export interface GroupListItemProps {
+  id: number;
+  name: string;
+}
+
+// options props
+export interface GroupOptionsProps {
+  index: number;
+  options: string[];
+}
+
+// ----------------------------------------------
+export interface GroupQuestionProps extends QuestionType {
+  serial: number;
+}
+export interface QuestionInfoProps extends QuestionType {
+  serial: number;
+  options: string[];
+  selectedIndex: number | null;
+  onSelect: (index: number) => void;
+}
+
+export interface CircularOptionProps {
+  label: string;
+  selected: boolean;
+  handleClick?: () => void;
 }

@@ -1,10 +1,17 @@
-import { Settings01FreeIcons } from "@hugeicons/core-free-icons";
 import React from "react";
-import MetaBar from "../ui/MetaBar";
-import ChapterHeader from "../ui/brain-bank/ChapterHeader";
-import ChapterItem from "../ui/brain-bank/ChapterItem";
+import MetaBar from "@/components/ui/MetaBar";
+import ChapterHeader from "@/components/ui/brain-bank/ChapterHeader";
+import ChapterItem from "@/components/ui/brain-bank/ChapterListItem";
+import { Settings01FreeIcons } from "@hugeicons/core-free-icons";
+import { RootState } from "@/app/store";
+import { useSelector } from "react-redux";
+import ChapterListItem from "@/components/ui/brain-bank/ChapterListItem";
 
 const Chapter: React.FC = () => {
+  const { book, loading, error } = useSelector(
+    (state: RootState) => state.book,
+  );
+
   // header options
   const headerOptions = {
     name: "Chapters & Groups",
@@ -27,12 +34,13 @@ const Chapter: React.FC = () => {
       <ChapterHeader {...headerOptions} />
       <MetaBar value={10} message="Chapters in this book." />
       <ul className="flex flex-col gap-1 px-3 py-2">
-        <ChapterItem title="Chapter One" />
-        <ChapterItem title="Chapter Two" />
-        <ChapterItem title="Chapter Three" />
-        <ChapterItem title="Chapter Four" />
-        <ChapterItem title="Chapter Five" />
-        <ChapterItem title="Chapter Six" />
+        {book.chapters.map((chapter) => (
+          <ChapterListItem
+            id={chapter.id}
+            groups={chapter.groups}
+            name={chapter.name}
+          />
+        ))}
       </ul>
     </section>
   );

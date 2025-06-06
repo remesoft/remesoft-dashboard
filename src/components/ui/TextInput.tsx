@@ -1,4 +1,4 @@
-import { TextInputProps } from "@/types";
+import { TextInputProps } from "@/types/brain-bank/props-type";
 import { HugeiconsIcon } from "@hugeicons/react";
 import React from "react";
 
@@ -12,7 +12,12 @@ const TextInput: React.FC<TextInputProps> = (props) => {
         value={props.value || ""}
         onChange={props.onChange}
       />
-      {props.icon && <HugeiconsIcon icon={props.icon} className="text-component-background-text" />}
+      {props.icon && (
+        <HugeiconsIcon
+          icon={props.icon}
+          className="text-component-background-text"
+        />
+      )}
     </div>
   );
 };

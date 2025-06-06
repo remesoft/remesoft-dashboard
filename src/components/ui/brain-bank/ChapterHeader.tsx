@@ -1,4 +1,4 @@
-import { ChapterHeaderProps } from "@/types";
+import { ChapterHeaderProps } from "@/types/brain-bank/props-type";
 import { Settings01FreeIcons } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import React, { useState } from "react";
@@ -14,8 +14,14 @@ const ChapterHeader: React.FC<ChapterHeaderProps> = ({ options, name }) => {
     <div className="flex items-center justify-between px-3 py-3">
       <h3 className="text-md font-semibold">{name}</h3>
       <div className="relative">
-        <button onClick={toggleDropdown} className="hover:bg-secondary-surface rounded-full p-1.5 transition">
-          <HugeiconsIcon icon={Settings01FreeIcons} className="text-details h-4.5 w-4.5" />
+        <button
+          onClick={toggleDropdown}
+          className="hover:bg-secondary-surface rounded-full p-1.5 transition"
+        >
+          <HugeiconsIcon
+            icon={Settings01FreeIcons}
+            className="text-details h-4.5 w-4.5"
+          />
         </button>
 
         {/* Dropdown menu */}
