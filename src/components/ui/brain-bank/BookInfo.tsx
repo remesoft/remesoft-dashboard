@@ -4,7 +4,9 @@ import {
   Calendar03FreeIcons,
   CalendarUpload01FreeIcons,
   CheckmarkBadge01FreeIcons,
+  Exchange01FreeIcons,
   File02FreeIcons,
+  RepeatIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import React from "react";
@@ -29,8 +31,13 @@ const BookInfo: React.FC<BookInformationProps> = (props) => {
           <HugeiconsIcon icon={CheckmarkBadge01FreeIcons} className="h-5 w-5" />
           Status
         </p>
-        <p className={`${statusClass} py-1`}>
-          : {props.published ? "Published" : "Unpublished"}
+        <p
+          className={`${statusClass} flex items-center justify-between py-1 pr-4`}
+        >
+          <span>: {props.published ? "Published" : "Unpublished"}</span>
+          <button>
+            <HugeiconsIcon className="h-4 w-4" icon={Exchange01FreeIcons} />
+          </button>
         </p>
         <p className="flex items-center gap-2">
           <HugeiconsIcon icon={Book04FreeIcons} className="h-5 w-5" />

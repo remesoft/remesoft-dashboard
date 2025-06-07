@@ -3,22 +3,26 @@ import { GroupType, QuestionType } from "./data-type";
 import { ExpanderIcon } from "@hugeicons/core-free-icons";
 
 // common props for components
+//-------------------------------------
 export interface componentProps {
   className?: string;
 }
 
 // theme states
+//-------------------------------------
 export interface ThemeState {
   headingSize: string;
   paragraphSize: string;
 }
 
 // icon button props
+//--------------------------------
 export interface IconButtonProps extends componentProps {
   icon: IconSvgElement;
 }
 
 // sidebar menu item props
+//------------------------------
 export interface SidebarMenuItemProps {
   icon: IconSvgElement;
   label: string;
@@ -27,16 +31,19 @@ export interface SidebarMenuItemProps {
 }
 
 // events props
+//---------------------------------
 export interface AppEvents {
   isMenuOpen: boolean;
 }
 
 // sidebar state
+//----------------------------------
 export interface headerSearchProps extends componentProps {
   onClick?: () => void;
 }
 
 // title bar props
+//-----------------------------------
 export interface breadcrumbsType {
   label: string;
   link: string;
@@ -47,6 +54,7 @@ export interface titleBarProps {
 }
 
 // text input props
+//-----------------------------------
 export interface TextInputProps extends componentProps {
   icon?: IconSvgElement;
   placeholder?: string;
@@ -55,6 +63,7 @@ export interface TextInputProps extends componentProps {
 }
 
 // book information props
+//------------------------------------
 export interface BookInformationProps {
   createdAt: string;
   updatedAt: string;
@@ -64,12 +73,14 @@ export interface BookInformationProps {
 }
 
 // meta bar props
+//-----------------------------------------
 export interface MetaBarProps {
   value: number;
   message: string;
 }
 
 // chapter header props
+//--------------------------------------
 export interface ChapterHeaderOptionsType {
   label: string;
   icon: IconSvgElement;
@@ -81,7 +92,8 @@ export interface ChapterHeaderProps {
   options: ChapterHeaderOptionsType[];
 }
 
-// chapter props
+// chapter list props
+//-----------------------------------
 export interface ChapterListItemProps {
   id: number;
   name: string;
@@ -93,16 +105,12 @@ export interface GroupListItemProps {
   name: string;
 }
 
-// options props
-export interface GroupOptionsProps {
-  index: number;
-  options: string[];
-}
-
-// ----------------------------------------------
+// Group Question props
+//-------------------------------------
 export interface GroupQuestionProps extends QuestionType {
   serial: number;
 }
+
 export interface QuestionInfoProps extends QuestionType {
   serial: number;
   options: string[];

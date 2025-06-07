@@ -11,6 +11,7 @@ import Groups from "@/components/brain-bank/Group";
 
 import { AppDispatch, RootState } from "@/app/store";
 import { fetchBook } from "@/features/brain-back/book-slice";
+import Information from "@/components/brain-bank/Information";
 
 const BookPage: React.FC = () => {
   // -------------------------------
@@ -86,6 +87,7 @@ const BookPage: React.FC = () => {
           <BookDetails />
           <Chapter />
           <Groups />
+          <Information />
         </motion.div>
       )}
     </div>
