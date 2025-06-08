@@ -14,7 +14,11 @@
   --color-primary-surface: #ffffff;
   --color-secondary-surface: #f6f8fb;
   --color-tertiary-surface: #d9d9d9;
-  --color-highlight-surface: color-mix(in srgb, var(--color-highlight) 10%, white);
+  --color-highlight-surface: color-mix(
+    in srgb,
+    var(--color-highlight) 10%,
+    white
+  );
 
   /* Global Borders */
   --color-secondary-border: #dbdbdb;

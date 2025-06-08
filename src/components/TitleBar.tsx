@@ -3,7 +3,7 @@ import { titleBarProps } from "../types/brain-bank/props-type";
 
 const TitleBar: React.FC<titleBarProps> = (props) => {
   return (
-    <section className="bg-primary-surface flex items-center justify-between px-7 py-2">
+    <section className="bg-primary-surface flex items-center justify-between px-4 py-2">
       <h2 className="text-header text-lg font-semibold">{props.title}</h2>
       <ul className="flex items-center gap-2">
         {props.breadcrumbs.map((breadcrumb, index) => (

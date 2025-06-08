@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import CreateBook from "../pages/brain-bank/CreateBook";
 import Test from "../layout/Test";
 import Book from "@/pages/brain-bank/Book";
+import Invoice from "@/pages/zson/Invoice";
+import InvoicePreview from "@/pages/zson/InvoicePreview";
 
 const routes = createBrowserRouter([
   {
@@ -22,19 +24,14 @@ const routes = createBrowserRouter([
         path: "/brain-bank/create-book",
         element: <CreateBook />,
       },
-
-      //   {
-      //     path: "/products",
-      //     element: <Products />,
-      //   },
-      //   {
-      //     path: "/orders",
-      //     element: <Orders />,
-      //   },
-      //   {
-      //     path: "/books",
-      //     element: <Books />,
-      //   },
+      {
+        path: "/zson/create-invoice",
+        element: <Invoice />,
+      },
+      {
+        path: "/zson/preview-invoice",
+        element: <InvoicePreview />,
+      },
     ],
   },
   {

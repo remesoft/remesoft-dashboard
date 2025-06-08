@@ -1,6 +1,7 @@
 import "../locales/i18n";
 import React from "react";
 import avatar from "../assets/avatar.jpg";
+import zson from "@/assets/zson/logo.jpg";
 import IconButton from "./ui/IconButton.js";
 import { useAppDispatch } from "../hooks";
 import { toggleMenu } from "../features/events/eventSlice";
@@ -17,7 +18,7 @@ const Header: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <header className="bg-header flex justify-between px-4 py-4">
+    <header className="bg-header flex justify-between px-2 py-4">
       {/* left side of heading  */}
       <div className="flex items-center gap-4">
         <button onClick={() => dispatch(toggleMenu())} className="text-white">
@@ -29,11 +30,14 @@ const Header: React.FC = () => {
       {/* right side of heading  */}
       <div className="flex items-center justify-between gap-2">
         <IconButton className="md:hidden" icon={Search01Icon} />
-        <IconButton className="hidden md:block" icon={DashboardCircleEditFreeIcons} />
+        <IconButton
+          className="hidden md:block"
+          icon={DashboardCircleEditFreeIcons}
+        />
         <IconButton icon={Notification03FreeIcons} />
         <IconButton className="hidden md:block" icon={Moon02FreeIcons} />
         <div className="ml-2">
-          <img className="h-8 w-8 rounded-full" src={avatar} alt="avatar" />
+          <img className="h-8 w-8 rounded-full" src={zson} alt="avatar" />
         </div>
       </div>
     </header>
