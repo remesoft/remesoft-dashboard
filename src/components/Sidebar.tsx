@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
             icon={BabyBoyDressFreeIcons}
             isActive={true}
             label="ZSon Fashion"
-            link="/something"
+            link="/zson/create-invoice"
           />
           <SidebarMenuItem
             icon={TeacherFreeIcons}
