@@ -129,6 +129,7 @@ interface InvoiceDocumentProps {
   invoiceNumber: string;
   date: string;
   customerName: string;
+  CustomerMobile: string;
   customerAddress: string;
   notes: string;
   products: Product[];
@@ -144,6 +145,7 @@ const InvoiceDocument: React.FC<InvoiceDocumentProps> = ({
   invoiceNumber,
   date,
   customerName,
+  CustomerMobile,
   customerAddress,
   notes,
   products,
@@ -174,6 +176,7 @@ const InvoiceDocument: React.FC<InvoiceDocumentProps> = ({
           <Text style={{ fontWeight: "800", fontSize: "12px" }}>
             {customerName}
           </Text>
+          <Text>{CustomerMobile}</Text>
           <Text>{customerAddress}</Text>
         </View>
 

@@ -10,6 +10,7 @@ const InvoicePreview = () => {
         invoiceNumber="ZSON-2344546-3434"
         date="2025-06-08"
         customerName="John Doe"
+        CustomerMobile="+8801771-868382"
         customerAddress="123 Example Street, City, Country"
         notes="Thank you for your business!"
         products={[

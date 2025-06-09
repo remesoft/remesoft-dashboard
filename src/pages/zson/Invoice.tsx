@@ -20,13 +20,16 @@ interface Product {
 }
 
 const generateInvoiceNumber = () => {
-  return Math.floor(100000000000 + Math.random() * 900000000000).toString();
+  return (
+    "ZSON-" + Math.floor(100000000000 + Math.random() * 900000000000).toString()
+  );
 };
 
 const Invoice: React.FC = () => {
   const [invoiceNumber, setInvoiceNumber] = useState("");
   const [date, setDate] = useState("");
   const [customerName, setCustomerName] = useState("");
+  const [customerMobile, setCustomerMobile] = useState("+880");
   const [customerAddress, setCustomerAddress] = useState("");
   const [deliveryCharge, setDeliveryCharge] = useState("130");
   const [notes, setNotes] = useState("");
@@ -88,6 +91,7 @@ const Invoice: React.FC = () => {
         invoiceNumber={invoiceNumber}
         date={date}
         customerName={customerName}
+        CustomerMobile={customerMobile}
         customerAddress={customerAddress}
         notes={notes}
         products={computedProducts}
@@ -173,6 +177,17 @@ const Invoice: React.FC = () => {
                 value={customerName}
                 placeholder="ex. Jhon Smith"
                 onChange={(e) => setCustomerName(e.target.value)}
+                className="bg-secondary-surface focus:outline-highlight/30 border-secondary/10 rounded-md border px-4 py-2"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="font-semibold">Customer Mobile</label>
+              <input
+                type="text"
+                value={customerMobile}
+                placeholder="ex. Jhon Smith"
+                onChange={(e) => setCustomerMobile(e.target.value)}
                 className="bg-secondary-surface focus:outline-highlight/30 border-secondary/10 rounded-md border px-4 py-2"
               />
             </div>
