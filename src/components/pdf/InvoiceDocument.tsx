@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingBottom: 20,
+    marginRight: "5px",
   },
   logo: {
     width: 55,
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   section: {
     paddingVertical: 20,
     flexDirection: "column",
+    marginLeft: "5px",
     gap: "5px",
   },
   table: {
@@ -85,8 +87,8 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginTop: 15,
     borderBottomWidth: 1,
-    borderColor: "#gray",
-    padding: "5px 5px",
+    borderColor: "gray",
+    padding: "0 5px",
   },
   totalRow: {
     flexDirection: "row",
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     width: "250px",
     marginLeft: "auto",
     paddingHorizontal: 5,
-    paddingVertical: 5,
+    paddingVertical: 8,
   },
   totalTextBold: {
     fontWeight: "700",
