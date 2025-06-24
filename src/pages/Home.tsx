@@ -1,5 +1,5 @@
+import PageInfo from "@/components/PageInfo";
 import React from "react";
-import TitleBar from "../components/Titlebar";
 
 const Home: React.FC = () => {
   // page title and breadcrumbs
@@ -13,7 +13,7 @@ const Home: React.FC = () => {
 
   return (
     <React.Fragment>
-      <TitleBar title={pageTitle} breadcrumbs={pageBreadcrumbs} />
+      <PageInfo title={pageTitle} breadcrumbs={pageBreadcrumbs} />
     </React.Fragment>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import TitleBar from "../../components/Titlebar";
+import PageInfo from "@/components/PageInfo";
 
 const CreateBook: React.FC = () => {
   const pageTitle = "Dashboard";
@@ -31,7 +31,7 @@ const CreateBook: React.FC = () => {
 
   return (
     <div className="h-full w-full overflow-hidden" ref={containerRef}>
-      <TitleBar title={pageTitle} breadcrumbs={pageBreadcrumbs} />
+      <PageInfo title={pageTitle} breadcrumbs={pageBreadcrumbs} />
       <motion.div
         drag="x"
         ref={contentRef}

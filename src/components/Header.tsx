@@ -4,7 +4,7 @@ import avatar from "../assets/avatar.jpg";
 import IconButton from "./ui/IconButton.js";
 import { useAppDispatch } from "../hooks";
 import { toggleMenu } from "../features/events/eventSlice";
-import Search from "./ui/Search";
+import HeaderSearch from "./ui/HeaderSearch";
 import {
   Menu02Icon,
   Search01Icon,
@@ -17,17 +17,17 @@ const Header: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <header className="bg-header flex justify-between px-4 py-4">
+    <header className="bg-primary flex justify-between px-4 py-4 text-white">
       {/* left side of heading  */}
       <div className="flex items-center gap-4">
-        <button onClick={() => dispatch(toggleMenu())} className="text-white">
+        <div onClick={() => dispatch(toggleMenu())}>
           <IconButton icon={Menu02Icon} />
-        </button>
-        <Search className="hidden md:flex" />
+        </div>
+        <HeaderSearch className="hidden md:flex" />
       </div>
 
       {/* right side of heading  */}
-      <div className="flex items-center justify-between gap-2">
+      <div className="text-contrast flex items-center justify-between gap-2">
         <IconButton className="md:hidden" icon={Search01Icon} />
         <IconButton className="hidden md:block" icon={DashboardCircleEditFreeIcons} />
         <IconButton icon={Notification03FreeIcons} />

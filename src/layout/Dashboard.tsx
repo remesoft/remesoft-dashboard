@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../features/Sidebar";
 import { Outlet } from "react-router";
 
 const MainContent = () => (
@@ -18,7 +18,7 @@ const MainContent = () => (
 const Dashboard = () => {
   return (
     <div className="flex h-screen w-screen overflow-x-hidden">
-      <Sidebar />
+      <Sidebar isOpen={false} />
       <div className="flex w-full flex-col overflow-hidden">
         <Header />
         <main className="flex-grow overflow-hidden bg-slate-200">

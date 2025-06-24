@@ -17,18 +17,6 @@ const routes = createBrowserRouter([
         path: "/brain-bank/create-book",
         element: <CreateBook />,
       },
-      //   {
-      //     path: "/products",
-      //     element: <Products />,
-      //   },
-      //   {
-      //     path: "/orders",
-      //     element: <Orders />,
-      //   },
-      //   {
-      //     path: "/books",
-      //     element: <Books />,
-      //   },
     ],
   },
   {
