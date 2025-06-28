@@ -5,13 +5,14 @@ import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 interface IconButtonProps {
   className?: string;
   icon: IconSvgElement;
+  onClick?: () => void;
 }
 
 // render component
 const IconButton: React.FC<IconButtonProps> = (props) => {
-  const { className, icon } = props;
+  const { className, icon, onClick } = props;
   return (
-    <button className={`${className} hover:bg-header-search rounded-full p-2`}>
+    <button onClick={onClick} className={`${className} rounded-full p-2 transition`}>
       <HugeiconsIcon icon={icon} className="text-header-item hover:text-header-item-hover h-6 w-6" />
     </button>
   );

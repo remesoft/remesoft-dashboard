@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../layout/Dashboard";
 import Home from "../pages/Home";
-import CreateBook from "../pages/brain_bank/CreateBook";
+import CreateBook from "@/pages/brain_bank/CreateBook";
 import Test from "../layout/Test";
+import ManageBook from "@/pages/brain_bank/ManageBook";
 
 const routes = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const routes = createBrowserRouter([
       {
         path: "/brain-bank/create-book",
         element: <CreateBook />,
+      },
+      {
+        path: "/brain-bank/books/:id",
+        element: <ManageBook />,
       },
     ],
   },

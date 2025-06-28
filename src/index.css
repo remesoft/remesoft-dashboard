@@ -6,10 +6,10 @@
   --color-secondary: #6c757d;
   --color-active: #188ae2;
   --color-inverted: #ffffff;
-  --color-background: #f2f5f7;
+  --color-background: #f3f4f7;
   --color-component: #ffffff;
   --color-component-active: #ffffff;
-  --color-border: #eef2f7;
+  --color-border: #dbdbdb;
 
   /* colors for header */
   /* --color-header: #343b4a;
@@ -53,6 +53,9 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: "Barlow", sans-serif;
   overflow: hidden;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../features/Sidebar";
 import { Outlet } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 const MainContent = () => (
   <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
@@ -16,15 +17,18 @@ const MainContent = () => (
 );
 
 const Dashboard = () => {
+  const [sidebar, setSidebar] = useState<boolean>(false);
+
   return (
     <div className="flex h-screen w-screen overflow-x-hidden">
-      <Sidebar isOpen={false} />
+      <Sidebar isOpen={sidebar} setSidebar={setSidebar} />
       <div className="flex w-full flex-col overflow-hidden">
-        <Header />
-        <main className="flex-grow overflow-hidden bg-slate-200">
+        <Header sidebar={sidebar} setSidebar={setSidebar} />
+        <main className="bg-background flex-grow overflow-hidden">
           <Outlet />
         </main>
       </div>
+      <ToastContainer position="bottom-right" hideProgressBar={true} className="text-sm" draggable />
     </div>
   );
 };

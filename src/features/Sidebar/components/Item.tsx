@@ -6,6 +6,7 @@ import { NavLink } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import Menu from "./Menu";
 
+// default list item
 const DefaultItem: React.FC<ItemProps> = ({ link, label, icon }) => {
   return (
     <NavLink
@@ -23,9 +24,9 @@ const DefaultItem: React.FC<ItemProps> = ({ link, label, icon }) => {
   );
 };
 
+// dropdown list item
 const DropdownItem: React.FC<ItemProps> = ({ menu, isActive, icon, label }) => {
   const [open, setOpen] = useState(false);
-
   return (
     <li>
       <div
@@ -56,6 +57,7 @@ const DropdownItem: React.FC<ItemProps> = ({ menu, isActive, icon, label }) => {
   );
 };
 
+// export list item
 const Item: React.FC<ItemProps> = (props) => {
   if (props.menu) return <DropdownItem {...props} />;
   else return <DefaultItem {...props} />;

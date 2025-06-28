@@ -13,14 +13,19 @@ import {
   DashboardCircleEditFreeIcons,
 } from "@hugeicons/core-free-icons";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  sidebar: boolean;
+  setSidebar: (status: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ sidebar, setSidebar }) => {
   const dispatch = useAppDispatch();
 
   return (
     <header className="bg-primary flex justify-between px-4 py-4 text-white">
       {/* left side of heading  */}
       <div className="flex items-center gap-4">
-        <div onClick={() => dispatch(toggleMenu())}>
+        <div onClick={() => setSidebar(!sidebar)}>
           <IconButton icon={Menu02Icon} />
         </div>
         <HeaderSearch className="hidden md:flex" />

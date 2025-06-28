@@ -11,20 +11,21 @@ import pages from "./data/pages";
 // sidebar component type
 interface SidebarProps {
   isOpen: boolean;
-  className?: string;
+  setSidebar: (sidebar: boolean) => void;
 }
 
 // component sidebar
-const Sidebar: React.FC<SidebarProps> = (props) => {
-  const { isOpen } = props;
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, setSidebar }) => {
   return (
-    <aside className={`${isOpen && "-translate-x-full"} sidebar`}>
+    <aside className={`${isOpen && "translate-x-0"} sidebar z-99 -translate-x-full`}>
       {/* header area start */}
       <section className="bg-primary flex items-center justify-between px-4 py-4">
         <img src={logo} className="h-6" alt="Company Logo" />
-        <div className="text-white lg:invisible">
-          <IconButton icon={MultiplicationSignFreeIcons} />
-        </div>
+        <IconButton
+          icon={MultiplicationSignFreeIcons}
+          onClick={() => setSidebar(false)}
+          className="text-white lg:invisible"
+        />
       </section>
 
       {/* primary menu start */}

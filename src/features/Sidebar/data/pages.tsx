@@ -15,14 +15,14 @@ const pages: ItemProps[] = [
     },
   },
   {
-    id: 1,
+    id: 2,
     label: "Create Book",
     icon: Books02FreeIcons,
     link: "/brain-bank/create-book",
     isActive: false,
   },
   {
-    id: 1,
+    id: 3,
     label: "Bangla First Paper",
     icon: Books02FreeIcons,
     link: "#",
@@ -36,7 +36,7 @@ const pages: ItemProps[] = [
         isActive: false,
       },
       {
-        id: 1,
+        id: 2,
         label: "Bangla Second Paper",
         icon: Books02FreeIcons,
         link: "/brain-bank/bangla-second",
@@ -45,7 +45,7 @@ const pages: ItemProps[] = [
     ],
   },
   {
-    id: 1,
+    id: 4,
     label: "Bangla First Paper",
     icon: Books02FreeIcons,
     link: "#",
@@ -59,7 +59,7 @@ const pages: ItemProps[] = [
         isActive: false,
       },
       {
-        id: 1,
+        id: 2,
         label: "Bangla Second Paper",
         icon: Books02FreeIcons,
         link: "/brain-bank/bangla-second",
