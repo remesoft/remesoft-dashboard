@@ -53,7 +53,7 @@ const ManageBook: React.FC = () => {
           ref={contentRef}
           dragElastic={0.1}
           dragConstraints={constraints}
-          className="flex w-fit cursor-grab gap-2 p-4 active:cursor-grabbing"
+          className="flex w-fit cursor-grab items-start gap-2 p-4 active:cursor-grabbing"
         >
           <Book bookName={book.name} bookPreview={book.image} />
           <Chapters />

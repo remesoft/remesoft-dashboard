@@ -43,7 +43,7 @@ const Book: React.FC<BookProps> = ({ bookName, bookPreview }) => {
   };
 
   return (
-    <div className="bg-component border-border/50 p1 rounded-lg border">
+    <div className="bg-component border-border/70 rounded-lg border">
       <div className="px-1 py-2">
         <Media preview={preview} onChange={setPreview} setSelectedImage={setSelectedImage} />
         <Input submitHandler={handleSubmit} changeHandler={nameChangeHandler} name={name} />
