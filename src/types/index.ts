@@ -1,3 +1,4 @@
+import ActionPanel from "@/components/ActionPanel";
 import { IconSvgElement } from "@hugeicons/react";
 
 // common props for components
@@ -30,8 +31,13 @@ export interface breadcrumbsType {
   link: string;
 }
 
-//
 export interface titleBarProps {
   title: string;
   breadcrumbs: breadcrumbsType[];
+}
+
+export interface ActionPanelProps {
+  label: string;
+  icon: IconSvgElement;
+  onClick: () => void;
 }

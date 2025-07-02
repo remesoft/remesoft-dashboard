@@ -2,8 +2,6 @@ import "../locales/i18n";
 import React from "react";
 import avatar from "../assets/avatar.jpg";
 import IconButton from "./ui/IconButton.js";
-import { useAppDispatch } from "../hooks";
-import { toggleMenu } from "../features/events/eventSlice";
 import HeaderSearch from "./ui/HeaderSearch";
 import {
   Menu02Icon,
@@ -19,8 +17,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ sidebar, setSidebar }) => {
-  const dispatch = useAppDispatch();
-
   return (
     <header className="bg-primary flex justify-between px-4 py-4 text-white">
       {/* left side of heading  */}

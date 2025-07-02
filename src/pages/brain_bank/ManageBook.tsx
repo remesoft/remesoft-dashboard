@@ -5,6 +5,7 @@ import Book from "@/features/brain-bank/book";
 import { useParams } from "react-router";
 import { useGetBookQuery } from "@/features/brain-bank/book/services/bookApi";
 import Chapters from "@/features/brain-bank/chapters/Chapters";
+import Questions from "@/features/brain-bank/questions";
 
 const ManageBook: React.FC = () => {
   const pageTitle = "Dashboard";
@@ -57,6 +58,7 @@ const ManageBook: React.FC = () => {
         >
           <Book bookName={book.name} bookPreview={book.image} />
           <Chapters />
+          <Questions />
         </motion.div>
       )}
     </div>
