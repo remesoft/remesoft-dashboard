@@ -16,22 +16,26 @@ import Group from "./Group";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
 import { useAddGroup } from "../../groups/hooks/useAddGroup";
+import { useDeleteChapter } from "../hooks/useDeleteChapter";
+import { useChapterData } from "../hooks/useChaptersHook";
 
 const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { groups, isLoading: isGroupsLoading, error: groupsError, refetch } = useGroupData(isOpen ? id : 0);
   const { addGroup, isLoading: isAddLoading, error: addError } = useAddGroup();
+  const { deleteChapter, isLoading: isChapterDeleteLoading } = useDeleteChapter();
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
+  const { refetch: chapterRefetch } = useChapterData(bookId);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleItemClick = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.closest("button")) return;
-    toggleDropdown();
-  };
+  // const handleItemClick = (e: React.MouseEvent) => {
+  //   const target = e.target as HTMLElement;
+  //   if (target.closest("button")) return;
+  //   toggleDropdown();
+  // };
 
   const handleDelete = () => {
     toast(
@@ -60,7 +64,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
       icon: Add01FreeIcons,
       onClick: async () => {
         try {
-          const newGroup = await addGroup(1);
+          const newGroup = await addGroup(id);
           refetch();
           console.log(newGroup);
           alert("Group added successfully!");
@@ -72,7 +76,10 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
     {
       label: "Delete Chapter",
       icon: Delete02FreeIcons,
-      onClick: async () => {},
+      onClick: async () => {
+        await deleteChapter(id);
+        chapterRefetch();
+      },
     },
   ];
 
@@ -104,7 +111,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
           <HugeiconsIcon className="h-4 w-4" icon={MoreVerticalFreeIcons} />
         </button>
 
-        {openActionPanel && <ActionPanel className="" actions={actions} />}
+        {openActionPanel && <ActionPanel actions={actions} />}
       </div>
 
       {isOpen && (

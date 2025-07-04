@@ -34,7 +34,7 @@ const Header: React.FC = () => {
 
   const actions: ActionPanelProps[] = [
     {
-      label: "Add Questation",
+      label: "Add Question",
       icon: Add01FreeIcons,
       onClick: async () => {
         try {
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       },
     },
     {
-      label: "Dwonload QR code",
+      label: "Download QR code",
       icon: CloudDownloadFreeIcons,
       onClick: () => {
         console.log("Hello World");

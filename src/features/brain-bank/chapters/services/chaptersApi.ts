@@ -12,7 +12,24 @@ export const chaptersApi = createApi({
     getChapters: builder.query<ChapterProps[], number>({
       query: (id) => `brain-bank/chapters/${id}`,
     }),
+
+    // ADD group
+    addChapter: builder.mutation<ChapterProps[], { bookId: number }>({
+      query: (body) => ({
+        url: "brain-bank/chapters/create",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    // Inside endpoints
+    deleteChapter: builder.mutation<{ status: boolean }, number>({
+      query: (id) => ({
+        url: `brain-bank/chapters/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetChaptersQuery } = chaptersApi;
+export const { useGetChaptersQuery, useAddChapterMutation, useDeleteChapterMutation } = chaptersApi;
