@@ -1,3 +1,4 @@
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../features/Sidebar";

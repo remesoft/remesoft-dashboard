@@ -43,8 +43,8 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <section ref={dropdownRef} className="py relative flex items-center px-4 py-3 font-semibold">
-      <input type="text" value="Chapter Name" className="flex-grow bg-transparent" />
+    <section ref={dropdownRef} className="py relative flex items-center justify-between px-4 py-3 font-semibold">
+      <h2>Chapters</h2>
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="hover:bg-background cursor-pointer rounded-full p-1.5 transition"

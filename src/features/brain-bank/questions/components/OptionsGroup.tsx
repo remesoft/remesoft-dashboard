@@ -30,7 +30,7 @@ const OptionsGroup: React.FC = () => {
   };
 
   return (
-    <div className="py-2">
+    <div className="overflow-y-scroll py-3">
       {isLoading && <p className="text-muted text-sm">Loading groups...</p>}
       {error && <p className="text-sm text-red-500">Failed to load questions</p>}
       {!isLoading &&

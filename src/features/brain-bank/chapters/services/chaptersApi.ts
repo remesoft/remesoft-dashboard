@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ChapterProps } from "../types";
+import { GroupProps } from "../../groups/types";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const chaptersApi = createApi({
@@ -11,6 +12,11 @@ export const chaptersApi = createApi({
     // get book query
     getChapters: builder.query<ChapterProps[], number>({
       query: (id) => `brain-bank/chapters/${id}`,
+    }),
+
+    // GET groups by some ID
+    getGroups: builder.query<GroupProps[], number>({
+      query: (id) => `brain-bank/chapters/${id}/groups`,
     }),
 
     // ADD group
@@ -29,7 +35,21 @@ export const chaptersApi = createApi({
         method: "DELETE",
       }),
     }),
+
+    updateChapter: builder.mutation<ChapterProps[], { id: number; data: Partial<ChapterProps> }>({
+      query: ({ id, data }) => ({
+        url: `brain-bank/chapters/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetChaptersQuery, useAddChapterMutation, useDeleteChapterMutation } = chaptersApi;
+export const {
+  useGetChaptersQuery,
+  useGetGroupsQuery,
+  useAddChapterMutation,
+  useDeleteChapterMutation,
+  useUpdateChapterMutation,
+} = chaptersApi;

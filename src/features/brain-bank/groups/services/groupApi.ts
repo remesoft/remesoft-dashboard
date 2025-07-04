@@ -10,7 +10,7 @@ export const groupsApi = createApi({
   }),
   endpoints: (builder) => ({
     // GET groups by some ID
-    getGroups: builder.query<GroupProps[], number>({
+    getGroups: builder.query<GroupProps, number>({
       query: (id) => `brain-bank/groups/${id}`,
     }),
 
@@ -30,8 +30,16 @@ export const groupsApi = createApi({
         method: "DELETE",
       }),
     }),
+
+    updateGroup: builder.mutation<GroupProps, { id: number; data: Partial<GroupProps> }>({
+      query: ({ id, data }) => ({
+        url: `brain-bank/groups/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
 // Export hooks
-export const { useGetGroupsQuery, useAddGroupMutation, useDeleteGroupMutation } = groupsApi;
+export const { useGetGroupsQuery, useAddGroupMutation, useDeleteGroupMutation, useUpdateGroupMutation } = groupsApi;

@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { ChapterProps } from "../types";
-import { useGroupData } from "../../groups/hooks/useGroupsHook";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Add01FreeIcons,
-  ArrowRight01FreeIcons,
-  BookOpen02FreeIcons,
-  Delete02FreeIcons,
-  MoreVerticalFreeIcons,
-} from "@hugeicons/core-free-icons";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import ConfirmationToast from "@/components/ConfirmationToast";
 import Group from "./Group";
 import { ActionPanelProps } from "@/types";
@@ -18,6 +9,15 @@ import ActionPanel from "@/components/ActionPanel";
 import { useAddGroup } from "../../groups/hooks/useAddGroup";
 import { useDeleteChapter } from "../hooks/useDeleteChapter";
 import { useChapterData } from "../hooks/useChaptersHook";
+import { useUpdateChapter } from "../hooks/useUpdateChapter";
+import {
+  Add01FreeIcons,
+  ArrowRight01FreeIcons,
+  BookOpen02FreeIcons,
+  Delete02FreeIcons,
+  MoreVerticalFreeIcons,
+} from "@hugeicons/core-free-icons";
+import { useGroupData } from "../hooks/useChapterGroups";
 
 const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,16 +26,13 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const { deleteChapter, isLoading: isChapterDeleteLoading } = useDeleteChapter();
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
   const { refetch: chapterRefetch } = useChapterData(bookId);
+  const { updateChapter, isLoading: isUpdateLoading } = useUpdateChapter();
+
+  const [chapterName, setChapterName] = useState(name);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
-
-  // const handleItemClick = (e: React.MouseEvent) => {
-  //   const target = e.target as HTMLElement;
-  //   if (target.closest("button")) return;
-  //   toggleDropdown();
-  // };
 
   const handleDelete = () => {
     toast(
@@ -44,7 +41,6 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
         onConfirm={() => {
           toast.dismiss();
           toast.success("Deleted!");
-          // Add your delete logic
         }}
         onCancel={() => toast.dismiss()}
       />,
@@ -56,6 +52,22 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
         className: "p-0 bg-transparent shadow-none",
       },
     );
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChapterName(e.target.value);
+  };
+
+  const handleNameBlur = async () => {
+    if (chapterName !== name) {
+      try {
+        await updateChapter({ id, data: { name: chapterName } });
+        toast.success("Chapter name updated!");
+      } catch {
+        toast.error("Failed to update chapter name.");
+        setChapterName(name);
+      }
+    }
   };
 
   const actions: ActionPanelProps[] = [
@@ -101,7 +113,14 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
             </button>
           </div>
 
-          <input type="text" value={name} className="font-medium" />
+          <input
+            type="text"
+            value={chapterName}
+            onChange={handleNameChange}
+            onBlur={handleNameBlur}
+            className="font-medium"
+            disabled={isUpdateLoading}
+          />
         </div>
 
         <button
@@ -121,7 +140,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
           {!isGroupsLoading && groups && groups.length > 0 && (
             <ul className="text-muted list-inside list-disc px-1 text-sm">
               {groups.map(({ id, name }) => (
-                <Group id={id} label={name} />
+                <Group key={id} id={id} label={name} />
               ))}
             </ul>
           )}

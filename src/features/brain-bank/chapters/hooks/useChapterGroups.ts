@@ -1,4 +1,4 @@
-import { useGetGroupsQuery } from "../services/groupApi";
+import { useGetGroupsQuery } from "../services/chaptersApi";
 
 export const useGroupData = (chapterId: number) => {
   const { data, isLoading, error, refetch } = useGetGroupsQuery(chapterId);

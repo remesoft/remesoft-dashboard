@@ -55,10 +55,10 @@ const Options: React.FC<OptionsProps> = ({ index, selected, onSelect, labels, lo
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative flex items-center justify-between gap-2 px-6 py-1">
+    <div ref={dropdownRef} className="relative flex items-center justify-between gap-2 py-3 pr-3 pl-5">
       <p>{toBengaliNumber(index + 1)}</p>
 
-      <div className="flex gap-2">
+      <div className="absolute left-1/2 flex -translate-x-1/2 gap-2">
         {labels.map((label, i) => (
           <Option
             key={label}
