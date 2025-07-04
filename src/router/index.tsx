@@ -19,7 +19,11 @@ const routes = createBrowserRouter([
         element: <CreateBook />,
       },
       {
-        path: "/brain-bank/books/:id",
+        path: "/brain-bank/books/:bookId",
+        element: <ManageBook />,
+      },
+      {
+        path: "/brain-bank/books/:bookId/groups/:groupId",
         element: <ManageBook />,
       },
     ],

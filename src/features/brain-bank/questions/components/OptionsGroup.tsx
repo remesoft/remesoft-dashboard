@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Options from "./Options";
 import { useQuestionData } from "../hooks/useQuestionsHook";
 import { useAnswerUpdate } from "../hooks/useAnswerUpdate";
+import { useParams } from "react-router";
 
 const OptionsGroup: React.FC = () => {
-  const { questions, isLoading, error } = useQuestionData(1);
+  const { groupId } = useParams();
+  const { questions, isLoading, error } = useQuestionData(Number(groupId));
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const { loadingQuestionId, handleAnswerUpdate } = useAnswerUpdate();
   const optionLabels = ["ক", "খ", "গ", "ঘ"];

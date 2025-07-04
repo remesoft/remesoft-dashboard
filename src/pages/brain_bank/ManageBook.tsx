@@ -35,9 +35,8 @@ const ManageBook: React.FC = () => {
   }, []);
 
   // get book information
-  const { id } = useParams();
-  const bookId = Number(id);
-  const { data: book, isLoading, isError } = useGetBookQuery(bookId);
+  const { bookId, groupId } = useParams();
+  const { data: book, isLoading, isError } = useGetBookQuery(Number(bookId));
 
   console.log(book);
 
@@ -58,7 +57,8 @@ const ManageBook: React.FC = () => {
         >
           <Book bookName={book.name} bookPreview={book.image} />
           <Chapters />
-          <Questions />
+
+          {groupId && <Questions />}
         </motion.div>
       )}
     </div>

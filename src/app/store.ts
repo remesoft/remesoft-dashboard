@@ -4,7 +4,7 @@ import settingReducer from "../features/theme/themeSlice";
 import eventReducer from "../features/events/eventSlice";
 import { bookApi } from "@/features/brain-bank/book/services/bookApi";
 import { chaptersApi } from "@/features/brain-bank/chapters/services/chaptersApi";
-import { groupsApi } from "@/features/brain-bank/groups/services/GroupsApi";
+import { groupsApi } from "@/features/brain-bank/groups/services/groupApi";
 import { questionsApi } from "@/features/brain-bank/questions/services/questionsApi";
 
 export const store = configureStore({

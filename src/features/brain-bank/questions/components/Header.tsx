@@ -9,35 +9,17 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
-
-const actions: ActionPanelProps[] = [
-  {
-    label: "Add Questation",
-    icon: Add01FreeIcons,
-    onClick: () => {
-      console.log("Hello World");
-    },
-  },
-  {
-    label: "Dwonload QR code",
-    icon: CloudDownloadFreeIcons,
-    onClick: () => {
-      console.log("Hello World");
-    },
-  },
-  {
-    label: "Delete Group",
-    icon: Delete02FreeIcons,
-    onClick: () => {
-      console.log("Hello World");
-    },
-  },
-];
+import { useCreateQuestion } from "../hooks/useCreateQuestion";
+import { useGetQuestionQuery } from "../services/questionsApi";
+import { useParams } from "react-router";
 
 const Header: React.FC = () => {
+  const { groupId } = useParams();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { createQuestion, isLoading } = useCreateQuestion();
 
+  const { data, refetch } = useGetQuestionQuery(Number(groupId));
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -49,6 +31,35 @@ const Header: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const actions: ActionPanelProps[] = [
+    {
+      label: "Add Questation",
+      icon: Add01FreeIcons,
+      onClick: async () => {
+        try {
+          await createQuestion();
+          refetch();
+        } catch (err) {
+          // Optional: toast or error display
+        }
+      },
+    },
+    {
+      label: "Dwonload QR code",
+      icon: CloudDownloadFreeIcons,
+      onClick: () => {
+        console.log("Hello World");
+      },
+    },
+    {
+      label: "Delete Group",
+      icon: Delete02FreeIcons,
+      onClick: async () => {
+        await console.log("Hello World");
+      },
+    },
+  ];
 
   return (
     <section ref={dropdownRef} className="relative flex items-center px-4 py-3 font-semibold">

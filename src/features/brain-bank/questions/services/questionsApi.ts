@@ -13,6 +13,15 @@ export const questionsApi = createApi({
       query: (groupId) => `brain-bank/questions/${groupId}`,
     }),
 
+    // create question
+    createQuestion: builder.mutation<any, { groupId: number }>({
+      query: (body) => ({
+        url: `brain-bank/questions/create`,
+        method: "POST",
+        body,
+      }),
+    }),
+
     // update answer mutation
     updateAnswer: builder.mutation<any, { questionId: number; answer: number }>({
       query: ({ questionId, answer }) => ({
@@ -24,4 +33,4 @@ export const questionsApi = createApi({
   }),
 });
 
-export const { useGetQuestionQuery, useUpdateAnswerMutation } = questionsApi;
+export const { useGetQuestionQuery, useUpdateAnswerMutation, useCreateQuestionMutation } = questionsApi;

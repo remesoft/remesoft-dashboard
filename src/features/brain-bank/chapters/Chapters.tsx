@@ -7,8 +7,8 @@ import Chapter from "./components/Chapter";
 
 const Chapters: React.FC = () => {
   const params = useParams();
-  const bookId = Number(params.id);
-  const { chapters, isLoading, error } = useChapterData(bookId); // ✅ keep chapters as is
+  const bookId = Number(params.bookId);
+  const { chapters, isLoading, error } = useChapterData(bookId);
 
   return (
     <div className="bg-component border-border/70 w-88 rounded-md border">
