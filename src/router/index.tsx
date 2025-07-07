@@ -26,6 +26,10 @@ const routes = createBrowserRouter([
         path: "/brain-bank/books/:bookId/groups/:groupId",
         element: <ManageBook />,
       },
+      {
+        path: "/brain-bank/books/:bookId/groups/:groupId/questions/:questionId",
+        element: <ManageBook />,
+      },
     ],
   },
   {

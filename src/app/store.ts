@@ -6,6 +6,7 @@ import { bookApi } from "@/features/brain-bank/book/services/bookApi";
 import { chaptersApi } from "@/features/brain-bank/chapters/services/chaptersApi";
 import { groupsApi } from "@/features/brain-bank/groups/services/groupApi";
 import { questionsApi } from "@/features/brain-bank/questions/services/questionsApi";
+import { extraApi } from "@/features/brain-bank/extra/services/extraApi";
 
 export const store = configureStore({
   reducer: {
@@ -16,11 +17,13 @@ export const store = configureStore({
     [chaptersApi.reducerPath]: chaptersApi.reducer,
     [groupsApi.reducerPath]: groupsApi.reducer,
     [questionsApi.reducerPath]: questionsApi.reducer,
+    [extraApi.reducerPath]: extraApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(bookApi.middleware)
       .concat(chaptersApi.middleware)
       .concat(groupsApi.middleware)
-      .concat(questionsApi.middleware),
+      .concat(questionsApi.middleware)
+      .concat(extraApi.middleware),
 });

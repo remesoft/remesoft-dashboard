@@ -1,0 +1,24 @@
+# Need to Fix
+-----------------------------------------------
+Book Component
+	1. Chapter Count not showing
+        2. Group Count not showing.
+        3. Total question not showing.
+        4. No update functionality.
+        5. No delete option.
+Chapter Component
+	1. Chapter has static meta.
+	2. Chapters header needs one option but show two.
+	3. Chapter popup option not hide after creating group or delete chapter.
+	4. No confirmation when deleting.
+	5. Need delete all functionality.
+Groups Component
+	1. Group not remove after delete form UI. Needs reload.
+	2. QR code not downloadable.
+Question Component 
+	1. Static Meta
+	2. Add extra url issue
+	3. Need delete all functionality.
+Extra Component
+	1. Markdown not working.
+	2. Markdown Preview not working.

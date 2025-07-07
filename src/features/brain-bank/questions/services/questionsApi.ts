@@ -30,7 +30,16 @@ export const questionsApi = createApi({
         body: { answer },
       }),
     }),
+
+    // Inside endpoints
+    deleteQuestion: builder.mutation<{ status: boolean }, number>({
+      query: (id) => ({
+        url: `brain-bank/questions/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetQuestionQuery, useUpdateAnswerMutation, useCreateQuestionMutation } = questionsApi;
+export const { useGetQuestionQuery, useUpdateAnswerMutation, useCreateQuestionMutation, useDeleteQuestionMutation } =
+  questionsApi;

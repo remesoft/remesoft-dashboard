@@ -116,7 +116,7 @@ const Header: React.FC = () => {
         value={groupName}
         onChange={handleNameChange}
         onBlur={handleNameBlur}
-        className="flex-grow border-none bg-transparent text-lg outline-none"
+        className="flex-grow border-none bg-transparent text-base outline-none"
         disabled={isCreating || isUpdating}
       />
       <button

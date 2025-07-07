@@ -2,10 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import PageInfo from "@/components/PageInfo";
 import Book from "@/features/brain-bank/book";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { useGetBookQuery } from "@/features/brain-bank/book/services/bookApi";
 import Chapters from "@/features/brain-bank/chapters/Chapters";
 import Questions from "@/features/brain-bank/questions";
+import Extra from "@/features/brain-bank/extra";
 
 const ManageBook: React.FC = () => {
   const pageTitle = "Dashboard";
@@ -15,6 +16,8 @@ const ManageBook: React.FC = () => {
     { label: "Create", link: "/create" },
   ];
 
+  const location = useLocation();
+  const isExtraRoute = location.pathname.endsWith("/extra");
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [constraints, setConstraints] = useState({ left: 0, right: 0 });
@@ -35,7 +38,7 @@ const ManageBook: React.FC = () => {
   }, []);
 
   // get book information
-  const { bookId, groupId } = useParams();
+  const { bookId, groupId, questionId } = useParams();
   const { data: book, isLoading, isError } = useGetBookQuery(Number(bookId));
 
   console.log(book);
@@ -57,8 +60,8 @@ const ManageBook: React.FC = () => {
         >
           <Book bookName={book.name} bookPreview={book.image} />
           <Chapters />
-
           {groupId && <Questions />}
+          {questionId && <Extra />}
         </motion.div>
       )}
     </div>

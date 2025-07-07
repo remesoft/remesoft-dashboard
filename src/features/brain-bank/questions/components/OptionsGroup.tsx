@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 
 const OptionsGroup: React.FC = () => {
   const { groupId } = useParams();
-  const { questions, isLoading, error } = useQuestionData(Number(groupId));
+  const { questions, isLoading, error, refetch } = useQuestionData(Number(groupId));
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const { loadingQuestionId, handleAnswerUpdate } = useAnswerUpdate();
   const optionLabels = ["ক", "খ", "গ", "ঘ"];
@@ -37,12 +37,14 @@ const OptionsGroup: React.FC = () => {
         questions &&
         questions.map((question, index) => (
           <Options
+            id={question.id}
             key={question.id}
             selected={selectedOptions[index]}
             onSelect={(answerIndex) => handleSelect(index, answerIndex)}
             labels={optionLabels}
             index={index}
             loading={loadingQuestionId === question.id}
+            refetchQuestions={refetch} // ✅ pass refetch function
           />
         ))}
     </div>

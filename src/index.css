@@ -40,19 +40,16 @@
 
 @layer base {
   [data-theme="light"] {
-    /* colors for header */
-    --color-header: #343b4a;
-    --color-header-item: #aab9ca;
-    --color-header-item-hover: #e4f0ff;
-    --color-header-search: #3f4759;
-    --color-header-user: #3f4759;
+    --color-primary: #343b4a;
+    --color-secondary: #6c757d;
+    --color-active: #188ae2;
+    --color-inverted: #ffffff;
+    --color-background: #f0f4f7;
+    --color-component: #ffffff;
+    --color-component-active: #ffffff;
+    --color-border: #dbdbdb;
 
-    /* colors for body */
-    --color-body: #f2f5f7;
-
-    /* colors for sidebar */
-
-    --color-test: #188ae2;
+    --font-hind-siliguri: "Hind Siliguri", sans-serif;
   }
 }
 

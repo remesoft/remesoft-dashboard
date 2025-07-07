@@ -28,7 +28,11 @@ export const bookApi = createApi({
     getBook: builder.query<BookType, number>({
       query: (id) => `brain-bank/books/${id}`,
     }),
+
+    getBooks: builder.query<BookType[], void>({
+      query: () => `brain-bank/books`,
+    }),
   }),
 });
 
-export const { useCreateBookMutation, useGetBookQuery } = bookApi;
+export const { useCreateBookMutation, useGetBookQuery, useGetBooksQuery } = bookApi;

@@ -1,24 +1,47 @@
-// Sidebar.tsx
-import React from "react";
+import React, { useMemo } from "react";
+import { useLocation } from "react-router";
+
 import logo from "@/assets/company.svg";
 import IconButton from "@/components/ui/IconButton";
-import { MultiplicationSignFreeIcons } from "@hugeicons/core-free-icons";
-
 import Menu from "./components/Menu";
 import dashboards from "./data/dashboards";
-import pages from "./data/pages";
+import pagesData from "./data/pages";
+import { useBooksData } from "../brain-bank/book/hooks/useBooksData";
+import { Book02FreeIcons, Books02FreeIcons, MultiplicationSignFreeIcons } from "@hugeicons/core-free-icons";
 
-// sidebar component type
+// Sidebar props
 interface SidebarProps {
   isOpen: boolean;
   setSidebar: (sidebar: boolean) => void;
 }
 
-// component sidebar
+// Component
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setSidebar }) => {
+  const location = useLocation();
+  const currentDashboard = location.pathname.split("/")[1]; // e.g., "brain-bank"
+  const { books, isLoading, error } = useBooksData();
+
+  // Get static pages based on current dashboard
+  const matchedPages = pagesData.find((item) => item.dashboard === currentDashboard)?.pages ?? [];
+
+  // Combine matchedPages + dynamic book pages
+  const combinedPages = useMemo(() => {
+    const dynamicPages =
+      books?.map((book, index) => ({
+        id: 1000 + index,
+        label: book.name, // or book.name
+        icon: Book02FreeIcons,
+        link: `/${currentDashboard}/books/${book.id}`,
+        isActive: false,
+        onClick: () => console.log("Clicked Book:", book.name),
+      })) ?? [];
+
+    return [...matchedPages, ...dynamicPages];
+  }, [books, matchedPages, currentDashboard]);
+
   return (
     <aside className={`${isOpen && "translate-x-0"} sidebar z-99 -translate-x-full`}>
-      {/* header area start */}
+      {/* Header */}
       <section className="bg-primary flex items-center justify-between px-4 py-4">
         <img src={logo} className="h-6" alt="Company Logo" />
         <IconButton
@@ -28,78 +51,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setSidebar }) => {
         />
       </section>
 
-      {/* primary menu start */}
+      {/* Dashboards */}
       <section className="px-3">
         <h4 className="text-secondary/75 mb-2 text-sm">Dashboards</h4>
         <Menu isDropdown={false} items={dashboards} />
       </section>
 
+      {/* Pages + Dynamic Books */}
       <section className="px-3">
         <h4 className="text-secondary/75 mb-2 text-sm">Pages</h4>
-        <Menu isDropdown={false} items={pages} />
+        <Menu isDropdown={false} items={combinedPages} />
       </section>
     </aside>
   );
 };
 
 export default Sidebar;
-
-// import React from "react";
-// import SidebarMenuItem from "./ui/SidebarMenuItem";
-// import logo from "../assets/company.svg";
-// import IconButton from "./ui/IconButton";
-// import {
-//   BabyBoyDressFreeIcons,
-//   Book03FreeIcons,
-//   Book04FreeIcons,
-//   MultiplicationSignFreeIcons,
-//   PlusSignCircleFreeIcons,
-//   TeacherFreeIcons,
-// } from "@hugeicons/core-free-icons";
-// import { useAppSelector } from "../hooks";
-// import { useAppDispatch } from "../hooks";
-// import { toggleMenu } from "../features/events/eventSlice";
-
-// const Sidebar: React.FC = () => {
-//   const { isMenuOpen } = useAppSelector((state) => state.events);
-//   const dispatch = useAppDispatch();
-
-//   return (
-//     <aside
-//       className={`${isMenuOpen ? "" : "-translate-x-full"} sidebar bg-foreground absolute flex h-screen w-72 shrink-[0] flex-col gap-4 transition ease-in-out lg:static lg:translate-0`}
-//     >
-//       <section className="bg-header flex items-center justify-between px-4 py-4">
-//         <img src={logo} className="h-6" alt="Company Logo" />
-//         <button onClick={() => dispatch(toggleMenu())} className="text-white lg:invisible">
-//           <IconButton icon={MultiplicationSignFreeIcons} />
-//         </button>
-//       </section>
-//       <section className="px-4">
-//         <h4 className="mb-2 text-sm text-gray-500">Dashboards</h4>
-//         <ul className="flex flex-col gap-1">
-//           <SidebarMenuItem icon={Book03FreeIcons} isActive={true} label="Brain Bank" link="/brain-bank" />
-//           <SidebarMenuItem icon={BabyBoyDressFreeIcons} isActive={true} label="ZSon Fashion" link="/something" />
-//           <SidebarMenuItem icon={TeacherFreeIcons} isActive={true} label="Tutorhub" link="/something" />
-//         </ul>
-//       </section>
-//       <section className="px-4">
-//         <h4 className="mb-2 text-sm text-gray-500">Navigation</h4>
-//         <ul className="flex flex-col gap-1">
-//           <SidebarMenuItem
-//             icon={PlusSignCircleFreeIcons}
-//             isActive={true}
-//             label="Create Book"
-//             link="/brain-bank/create-book"
-//           />
-//           <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="ICT MCQ Skills" link="/something" />
-//           <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Bangla First Paper" link="/something" />
-//           <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Bangla Second Paper" link="/something" />
-//           <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Physics First Paper" link="/something" />
-//           <SidebarMenuItem icon={Book04FreeIcons} isActive={true} label="Physics Second Paper" link="/something" />
-//         </ul>
-//       </section>
-//     </aside>
-//   );
-// };
-
-// export default Sidebar;

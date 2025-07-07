@@ -1,47 +1,48 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Delete02FreeIcons, MoreVerticalFreeIcons } from "@hugeicons/core-free-icons";
+import { Add01FreeIcons, Add02FreeIcons, Delete02FreeIcons, MoreVerticalFreeIcons } from "@hugeicons/core-free-icons";
 import Option from "./Option";
 import { useBengaliNumber } from "@/hooks";
 import ActionPanel from "@/components/ActionPanel";
 import { ActionPanelProps } from "@/types";
+import { useNavigate } from "react-router";
+import { useDeleteQuestion } from "../hooks/useDeletetQuestion";
+import { useQuestionData } from "../hooks/useQuestionsHook";
 
 interface OptionsProps {
+  id: number;
   index: number;
   selected: string;
   onSelect: (index: number) => void;
   labels: string[];
   loading?: boolean; // ✅ optional loading flag
+  refetchQuestions: () => void; // ✅ added
 }
 
-const actions: ActionPanelProps[] = [
-  {
-    label: "Add Question",
-    icon: Delete02FreeIcons,
-    onClick: () => {
-      console.log("Add Question clicked");
-    },
-  },
-  {
-    label: "Download QR code",
-    icon: Delete02FreeIcons,
-    onClick: () => {
-      console.log("Download QR Code clicked");
-    },
-  },
-  {
-    label: "Delete Group",
-    icon: Delete02FreeIcons,
-    onClick: () => {
-      console.log("Delete Group clicked");
-    },
-  },
-];
-
-const Options: React.FC<OptionsProps> = ({ index, selected, onSelect, labels, loading }) => {
+const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels, loading, refetchQuestions }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toBengaliNumber = useBengaliNumber();
+  const navigate = useNavigate();
+  const { deleteQuestion } = useDeleteQuestion(id);
+
+  const actions: ActionPanelProps[] = [
+    {
+      label: "Add Extra",
+      icon: Add01FreeIcons,
+      onClick: () => {
+        navigate("questions/" + id);
+      },
+    },
+    {
+      label: "Delete Question",
+      icon: Delete02FreeIcons,
+      onClick: async () => {
+        await deleteQuestion();
+        refetchQuestions();
+      },
+    },
+  ];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
