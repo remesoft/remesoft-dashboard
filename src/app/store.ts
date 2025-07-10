@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
 import settingReducer from "../features/theme/themeSlice";
 import eventReducer from "../features/events/eventSlice";
+import brainBankReducer from "@/features/brain-bank/state";
 import { bookApi } from "@/features/brain-bank/book/services/bookApi";
 import { chaptersApi } from "@/features/brain-bank/chapters/services/chaptersApi";
 import { groupsApi } from "@/features/brain-bank/groups/services/groupApi";
@@ -13,6 +14,7 @@ export const store = configureStore({
     counter: counterReducer,
     theme: settingReducer,
     events: eventReducer,
+    brainBank: brainBankReducer,
     [bookApi.reducerPath]: bookApi.reducer,
     [chaptersApi.reducerPath]: chaptersApi.reducer,
     [groupsApi.reducerPath]: groupsApi.reducer,

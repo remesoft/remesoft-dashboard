@@ -7,8 +7,8 @@ import Group from "./Group";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
 import { useAddGroup } from "../../groups/hooks/useAddGroup";
-import { useDeleteChapter } from "../hooks/useDeleteChapter";
-import { useChapterData } from "../hooks/useChaptersHook";
+import { useDeleteChapter } from "../hooks";
+import { useGetChapters } from "../hooks";
 import { useUpdateChapter } from "../hooks/useUpdateChapter";
 import {
   Add01FreeIcons,
@@ -25,33 +25,13 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const { addGroup, isLoading: isAddLoading, error: addError } = useAddGroup();
   const { deleteChapter, isLoading: isChapterDeleteLoading } = useDeleteChapter();
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
-  const { refetch: chapterRefetch } = useChapterData(bookId);
+  const { refetch: chapterRefetch } = useGetChapters(bookId);
   const { updateChapter, isLoading: isUpdateLoading } = useUpdateChapter();
 
   const [chapterName, setChapterName] = useState(name);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
-  };
-
-  const handleDelete = () => {
-    toast(
-      <ConfirmationToast
-        message="Do you really want to delete this item?"
-        onConfirm={() => {
-          toast.dismiss();
-          toast.success("Deleted!");
-        }}
-        onCancel={() => toast.dismiss()}
-      />,
-      {
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-        className: "p-0 bg-transparent shadow-none",
-      },
-    );
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +104,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
         </div>
 
         <button
-          className="hover:bg-background cursor-pointer rounded-full p-1.5 transition"
+          className="hover:bg-component/100 cursor-pointer rounded-full p-1.5 transition"
           onClick={handleActionPanel}
         >
           <HugeiconsIcon className="h-4 w-4" icon={MoreVerticalFreeIcons} />

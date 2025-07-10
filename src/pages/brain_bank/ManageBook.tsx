@@ -18,9 +18,11 @@ const ManageBook: React.FC = () => {
 
   const location = useLocation();
   const isExtraRoute = location.pathname.endsWith("/extra");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [constraints, setConstraints] = useState({ left: 0, right: 0 });
+  const [isDraggable, setIsDraggable] = useState(false);
 
   useEffect(() => {
     const updateConstraints = () => {
@@ -28,7 +30,9 @@ const ManageBook: React.FC = () => {
         const containerWidth = containerRef.current.offsetWidth;
         const contentWidth = contentRef.current.scrollWidth;
         const maxDrag = Math.min(0, containerWidth - contentWidth);
+
         setConstraints({ left: maxDrag, right: 0 });
+        setIsDraggable(contentWidth > containerWidth);
       }
     };
 
@@ -39,31 +43,24 @@ const ManageBook: React.FC = () => {
 
   // get book information
   const { bookId, groupId, questionId } = useParams();
-  const { data: book, isLoading, isError } = useGetBookQuery(Number(bookId));
-
-  console.log(book);
 
   return (
     <div className="h-full w-full overflow-hidden" ref={containerRef}>
       <PageInfo title={pageTitle} breadcrumbs={pageBreadcrumbs} />
-      {isLoading ? (
-        <p className="p-4 text-gray-500">Loading book...</p>
-      ) : isError || !book ? (
-        <p className="p-4 text-red-500">Failed to load book.</p>
-      ) : (
-        <motion.div
-          drag="x"
-          ref={contentRef}
-          dragElastic={0.1}
-          dragConstraints={constraints}
-          className="flex w-fit cursor-grab items-start gap-2 p-4 active:cursor-grabbing"
-        >
-          <Book bookName={book.name} bookPreview={book.image} />
-          <Chapters />
-          {groupId && <Questions />}
-          {questionId && <Extra />}
-        </motion.div>
-      )}
+      <motion.div
+        ref={contentRef}
+        {...(isDraggable && {
+          drag: "x",
+          dragElastic: 0.1,
+          dragConstraints: constraints,
+        })}
+        className={`flex w-fit items-start gap-2 p-4 ${isDraggable ? "cursor-grab active:cursor-grabbing" : ""}`}
+      >
+        <Book />
+        <Chapters />
+        {groupId && <Questions />}
+        {questionId && <Extra />}
+      </motion.div>
     </div>
   );
 };

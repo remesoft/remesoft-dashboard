@@ -7,6 +7,9 @@ export interface BookType {
   image: string;
   createdAt: string;
   updatedAt: string;
+  totalChapters: number;
+  totalGroups: number;
+  totalQuestions: number;
 }
 
 export const bookApi = createApi({
@@ -15,6 +18,16 @@ export const bookApi = createApi({
     baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
+    // get book query
+    getBook: builder.query<BookType, number>({
+      query: (id) => `brain-bank/books/${id}`,
+    }),
+
+    // get books query
+    getBooks: builder.query<BookType[], void>({
+      query: () => `brain-bank/books`,
+    }),
+
     // create book query
     createBook: builder.mutation<BookType, FormData>({
       query: (formData) => ({
@@ -24,15 +37,29 @@ export const bookApi = createApi({
       }),
     }),
 
-    // get book query
-    getBook: builder.query<BookType, number>({
-      query: (id) => `brain-bank/books/${id}`,
+    // update book information
+    updateBook: builder.mutation<BookType, { formData: FormData; bookId: number }>({
+      query: ({ formData, bookId }) => ({
+        url: `brain-bank/books/${bookId}`,
+        method: "PATCH",
+        body: formData,
+      }),
     }),
 
-    getBooks: builder.query<BookType[], void>({
-      query: () => `brain-bank/books`,
+    // delete book query
+    deleteBook: builder.mutation<{ status: boolean }, number>({
+      query: (id) => ({
+        url: `brain-bank/books/${id}`,
+        method: "DELETE",
+      }),
     }),
   }),
 });
 
-export const { useCreateBookMutation, useGetBookQuery, useGetBooksQuery } = bookApi;
+export const {
+  useCreateBookMutation,
+  useGetBookQuery,
+  useGetBooksQuery,
+  useUpdateBookMutation,
+  useDeleteBookMutation,
+} = bookApi;

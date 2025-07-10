@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setSidebar }) => {
         id: 1000 + index,
         label: book.name, // or book.name
         icon: Book02FreeIcons,
-        link: `/${currentDashboard}/books/${book.id}`,
+        link: `${currentDashboard}/books/${book.id}`,
         isActive: false,
         onClick: () => console.log("Clicked Book:", book.name),
       })) ?? [];

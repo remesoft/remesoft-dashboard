@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOMServer from "react-dom/server";
+import { QRCodeSVG } from "qrcode.react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
@@ -7,7 +9,7 @@ import { useNavigate, useParams } from "react-router";
 import { useQuestionData } from "../hooks/useQuestionsHook";
 import { useGroupData } from "../../groups/hooks/useGroupData";
 import { useUpdateGroup } from "../../groups/hooks/useUpdateGroup";
-import { toast } from "react-toastify"; // or your preferred toast lib
+import { toast } from "react-toastify";
 
 import {
   Add01FreeIcons,
@@ -16,12 +18,35 @@ import {
   MoreVerticalFreeIcons,
 } from "@hugeicons/core-free-icons";
 import { useDeleteGroup } from "../../groups/hooks/useDeleteGroup";
+import { Canvg } from "canvg";
+
+const downloadQRCode = async (text: string) => {
+  const svgString = ReactDOMServer.renderToStaticMarkup(<QRCodeSVG value={text} size={256} />);
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 256;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    console.error("Canvas context is null");
+    return;
+  }
+
+  const v = await Canvg.from(ctx, svgString);
+  await v.render();
+
+  const pngUrl = canvas.toDataURL("image/png");
+
+  const link = document.createElement("a");
+  link.href = pngUrl;
+  link.download = "qr-code.png";
+  link.click();
+};
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const { groupId, bookId } = useParams();
-
   const numericGroupId = Number(groupId);
 
   const [open, setOpen] = useState(false);
@@ -35,12 +60,10 @@ const Header: React.FC = () => {
 
   const [groupName, setGroupName] = useState(group?.name || "");
 
-  // Sync group name from fetched group data
   useEffect(() => {
     if (group?.name) setGroupName(group.name);
   }, [group?.name]);
 
-  // Handle outside click to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -51,12 +74,10 @@ const Header: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Handle group name change
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value);
   };
 
-  // Update group name on blur
   const handleNameBlur = async () => {
     if (group && group.name !== groupName.trim()) {
       try {
@@ -88,7 +109,9 @@ const Header: React.FC = () => {
       label: "Download QR code",
       icon: CloudDownloadFreeIcons,
       onClick: () => {
-        console.log("Download QR code clicked");
+        const url = `${window.location.origin}/brain-bank/groups/${groupId}`;
+        console.log(url);
+        downloadQRCode(url);
       },
     },
     {
