@@ -11,12 +11,10 @@ const Header: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { addChapter, isLoading } = useAddChapter();
   const { bookId } = useParams();
-  const { refetch } = useGetChapters(Number(bookId));
 
   // handlers
   const handleCreate = async () => {
     await addChapter(Number(bookId));
-    refetch();
   };
 
   return (

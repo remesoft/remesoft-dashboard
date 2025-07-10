@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChapterProps } from "../types";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { toast } from "react-toastify";
-import ConfirmationToast from "@/components/ConfirmationToast";
 import Group from "./Group";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
 import { useAddGroup } from "../../groups/hooks/useAddGroup";
 import { useDeleteChapter } from "../hooks";
-import { useGetChapters } from "../hooks";
-import { useUpdateChapter } from "../hooks/useUpdateChapter";
+import { useUpdateChapter } from "../hooks";
 import {
   Add01FreeIcons,
   ArrowRight01FreeIcons,
@@ -25,7 +23,6 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const { addGroup, isLoading: isAddLoading, error: addError } = useAddGroup();
   const { deleteChapter, isLoading: isChapterDeleteLoading } = useDeleteChapter();
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
-  const { refetch: chapterRefetch } = useGetChapters(bookId);
   const { updateChapter, isLoading: isUpdateLoading } = useUpdateChapter();
 
   const [chapterName, setChapterName] = useState(name);
@@ -41,9 +38,15 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const handleNameBlur = async () => {
     if (chapterName !== name) {
       try {
-        await updateChapter({ id, data: { name: chapterName } });
+        await updateChapter({
+          id,
+          data: { name: chapterName },
+          bookId,
+        }).unwrap();
+
         toast.success("Chapter name updated!");
-      } catch {
+      } catch (error) {
+        console.error("Update failed:", error);
         toast.error("Failed to update chapter name.");
         setChapterName(name);
       }
@@ -69,8 +72,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
       label: "Delete Chapter",
       icon: Delete02FreeIcons,
       onClick: async () => {
-        await deleteChapter(id);
-        chapterRefetch();
+        await deleteChapter(id, bookId);
       },
     },
   ];
@@ -80,6 +82,9 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
     setOpenActionPanel(!openActionPanel);
   };
 
+  useEffect(() => {
+    console.log(groups);
+  }, [groups]);
   return (
     <li
       className={`${isOpen && "bg-background/70"} text-secondary hover:bg-background/70 [.active]:bg-active/15 [.active]:text-active rounded-sm py-2 transition`}
@@ -119,8 +124,8 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
           {groupsError && <p className="text-sm text-red-500">Failed to load groups</p>}
           {!isGroupsLoading && groups && groups.length > 0 && (
             <ul className="text-muted list-inside list-disc px-1 text-sm">
-              {groups.map(({ id, name }) => (
-                <Group key={id} id={id} label={name} />
+              {groups.map((group) => (
+                <Group key={group.id} id={group.id} label={group.name} />
               ))}
             </ul>
           )}
