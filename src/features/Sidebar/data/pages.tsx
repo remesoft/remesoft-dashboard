@@ -48,7 +48,7 @@ const pages: PagesProps[] = [
         id: 2,
         label: "Create Product",
         icon: Books02FreeIcons,
-        link: "/brain-bank/create-book",
+        link: "/brain-bank/create-product",
         isActive: false,
       },
     ],

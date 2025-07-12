@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Add01FreeIcons, Add02FreeIcons, Delete02FreeIcons, MoreVerticalFreeIcons } from "@hugeicons/core-free-icons";
+import {
+  Add01FreeIcons,
+  Delete02FreeIcons,
+  MoreVerticalFreeIcons,
+} from "@hugeicons/core-free-icons";
 import Option from "./Option";
 import { useBengaliNumber } from "@/hooks";
 import ActionPanel from "@/components/ActionPanel";
 import { ActionPanelProps } from "@/types";
 import { useNavigate } from "react-router";
 import { useDeleteQuestion } from "../hooks/useDeletetQuestion";
-import { useQuestionData } from "../hooks/useQuestionsHook";
 
 interface OptionsProps {
   id: number;
@@ -15,13 +18,22 @@ interface OptionsProps {
   selected: string;
   onSelect: (index: number) => void;
   labels: string[];
-  loading?: boolean; // ✅ optional loading flag
-  refetchQuestions: () => void; // ✅ added
+  loading?: boolean;
+  refetchQuestions: () => void;
 }
 
-const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels, loading, refetchQuestions }) => {
+const Options: React.FC<OptionsProps> = ({
+  index,
+  id,
+  selected,
+  onSelect,
+  labels,
+  loading,
+  refetchQuestions,
+}) => {
   const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null); // Wrapper ref for ActionPanel
   const toBengaliNumber = useBengaliNumber();
   const navigate = useNavigate();
   const { deleteQuestion } = useDeleteQuestion(id);
@@ -32,6 +44,7 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
       icon: Add01FreeIcons,
       onClick: () => {
         navigate("questions/" + id);
+        setOpen(false);
       },
     },
     {
@@ -40,23 +53,32 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
       onClick: async () => {
         await deleteQuestion();
         refetchQuestions();
+        setOpen(false);
       },
     },
   ];
 
+  // ✅ Click outside detection (for both button and panel)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        panelRef.current &&
+        !panelRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative flex items-center justify-between gap-2 py-3 pr-3 pl-5">
+    <div className="relative flex items-center justify-between gap-2 py-3 pr-3 pl-5">
       <p>{toBengaliNumber(index + 1)}</p>
 
       <div className="absolute left-1/2 flex -translate-x-1/2 gap-2">
@@ -72,6 +94,7 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
       </div>
 
       <button
+        ref={buttonRef}
         onClick={() => setOpen((prev) => !prev)}
         className="hover:bg-background cursor-pointer rounded-full p-1.5 transition"
       >
@@ -79,8 +102,16 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 z-10 mt-2">
-          <ActionPanel actions={actions} />
+        <div
+          ref={panelRef}
+          className="absolute top-full right-0 z-10 mt-2"
+        >
+          <ActionPanel
+            triggerRef={buttonRef}
+            className="top-0"
+            actions={actions}
+            onClose={() => setOpen(false)} // Optional, in case you want to also allow panel to close itself
+          />
         </div>
       )}
     </div>

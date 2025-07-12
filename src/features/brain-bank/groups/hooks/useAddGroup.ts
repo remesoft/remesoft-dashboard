@@ -1,4 +1,5 @@
 import { useAddGroupMutation } from "../services/groupApi";
+import {toast} from 'react-toastify';
 
 export const useAddGroup = () => {
   const [addGroupApi, { isLoading, error, data }] = useAddGroupMutation();
@@ -6,9 +7,10 @@ export const useAddGroup = () => {
   const addGroup = async (chapterId: number) => {
     try {
       const result = await addGroupApi({ chapterId }).unwrap();
-      console.log("✅ Group added:", result);
+      toast.success("Group created successful!")
       return result;
     } catch (err) {
+      toast.error("Failed to create group.")
       console.error("❌ Failed to add group:", err);
       throw err;
     }

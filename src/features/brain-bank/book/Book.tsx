@@ -1,5 +1,5 @@
 // 1. Imports (React, components, hooks, libraries)
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 
@@ -7,7 +7,7 @@ import Media from "./components/Media";
 import Input from "./components/Input";
 import Info from "./components/Info";
 import { useBookData } from "./hooks/useBookData";
-import { useGetBook, useUpdateBook } from "./hooks";
+import { useGetBook, useGetBooks, useUpdateBook } from "./hooks";
 
 // 2. Component Definition
 const Book: React.FC = () => {

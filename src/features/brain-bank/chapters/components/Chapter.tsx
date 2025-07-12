@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChapterProps } from "../types";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { toast } from "react-toastify";
@@ -24,6 +24,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const { deleteChapter, isLoading: isChapterDeleteLoading } = useDeleteChapter();
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
   const { updateChapter, isLoading: isUpdateLoading } = useUpdateChapter();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [chapterName, setChapterName] = useState(name);
 
@@ -59,10 +60,9 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
       icon: Add01FreeIcons,
       onClick: async () => {
         try {
-          const newGroup = await addGroup(id);
+          await addGroup(id);
+          setOpenActionPanel(false);
           refetch();
-          console.log(newGroup);
-          alert("Group added successfully!");
         } catch (err) {
           alert("Failed to add group");
         }
@@ -73,6 +73,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
       icon: Delete02FreeIcons,
       onClick: async () => {
         await deleteChapter(id, bookId);
+        setOpenActionPanel(false);
       },
     },
   ];
@@ -109,13 +110,14 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
         </div>
 
         <button
+          ref={buttonRef}
           className="hover:bg-component/100 cursor-pointer rounded-full p-1.5 transition"
           onClick={handleActionPanel}
         >
           <HugeiconsIcon className="h-4 w-4" icon={MoreVerticalFreeIcons} />
         </button>
 
-        {openActionPanel && <ActionPanel actions={actions} />}
+        {openActionPanel && <ActionPanel triggerRef={buttonRef} actions={actions} onClose={() => setOpenActionPanel(false)} />}
       </div>
 
       {isOpen && (

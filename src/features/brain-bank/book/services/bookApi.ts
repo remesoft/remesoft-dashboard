@@ -14,18 +14,19 @@ export interface BookType {
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-  }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  tagTypes: ["books"],
   endpoints: (builder) => ({
     // get book query
     getBook: builder.query<BookType, number>({
       query: (id) => `brain-bank/books/${id}`,
+      providesTags: ["books"],
     }),
 
     // get books query
     getBooks: builder.query<BookType[], void>({
       query: () => `brain-bank/books`,
+      providesTags: ["books"],
     }),
 
     // create book query
@@ -34,6 +35,7 @@ export const bookApi = createApi({
         url: "brain-bank/books/create",
         method: "POST",
         body: formData,
+        invalidatesTags: ["books"],
       }),
     }),
 

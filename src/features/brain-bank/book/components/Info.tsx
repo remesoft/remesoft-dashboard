@@ -1,18 +1,21 @@
-import ConfirmationToast from "@/components/ConfirmationToast";
 import {
   Calendar03FreeIcons,
   CalendarUpload01FreeIcons,
-  Delete02FreeIcons,
   HelpSquareFreeIcons,
   LicenseFreeIcons,
   News01FreeIcons,
+  Settings02FreeIcons,
+  Delete02FreeIcons,
+  CloudDownloadFreeIcons,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import moment from "moment";
-import React from "react";
-import { Navigate, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { useDeleteBook } from "../hooks";
+import { useEffect, useRef, useState } from "react";
+import ActionPanel from "@/components/ActionPanel";
+import { ActionPanelProps } from "@/types";
 
 interface TemplateProps {
   icon: IconSvgElement;
@@ -43,36 +46,53 @@ const Template: React.FC<TemplateProps> = ({ icon, property, value }) => {
 const Info: React.FC<InfoProps> = (props) => {
   const { bookId } = useParams();
   const navigate = useNavigate();
-
-  const { createdAt, updatedAt, totalChapters, totalGroups, totalQuestions } = props;
   const { deleteBook } = useDeleteBook();
+  const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleDelete = (bookId: number) => {
-    deleteBook(Number(bookId), () => {
-      toast.success("Book Delete Successful");
-      navigate("/brain-bank/create-book");
-    });
-  };
+
+  const actions: ActionPanelProps[] = [
+    {
+      label: "Download Book",
+      icon: CloudDownloadFreeIcons,
+      onClick: () => {
+        toast.info("Download started...");
+        setOpenActionPanel(false);
+        window.open(`${import.meta.env.VITE_BASE_URL}brain-bank/download/database`, "_blank");
+      },
+    },
+    {
+      label: "Delete Book",
+      icon: Delete02FreeIcons,
+      onClick: () => {
+        deleteBook(Number(bookId), () => {
+          toast.success("Book Delete Successful");
+          navigate("/brain-bank/create-book");
+        });
+        setOpenActionPanel(false);
+      },
+    },
+  ];
+
   return (
     <div className="relative px-4 pb-4">
-      <Template icon={Calendar03FreeIcons} property="Created At" value={moment(createdAt).format("MMMM Do YYYY")} />
-      <Template
-        icon={CalendarUpload01FreeIcons}
-        property="Updated At"
-        value={moment(updatedAt).format("MMMM Do YYYY")}
-      />
-
-      <Template icon={News01FreeIcons} property="Chapters" value={totalChapters} />
-      <Template icon={LicenseFreeIcons} property="Group" value={totalGroups} />
-      <Template icon={HelpSquareFreeIcons} property="Questions" value={totalQuestions} />
+      <Template icon={Calendar03FreeIcons} property="Created At" value={moment(props.createdAt).format("MMMM Do YYYY")} />
+      <Template icon={CalendarUpload01FreeIcons} property="Updated At" value={moment(props.updatedAt).format("MMMM Do YYYY")} />
+      <Template icon={News01FreeIcons} property="Chapters" value={props.totalChapters} />
+      <Template icon={LicenseFreeIcons} property="Group" value={props.totalGroups} />
+      <Template icon={HelpSquareFreeIcons} property="Questions" value={props.totalQuestions} />
 
       {bookId && (
-        <button
-          onClick={() => handleDelete(Number(bookId))}
-          className="bg-background/50 hover:bg-background absolute right-0 bottom-0 m-5 rounded-full p-2 transition"
-        >
-          <HugeiconsIcon className="h-4 w-4" icon={Delete02FreeIcons} />
-        </button>
+        <div className="absolute right-0 bottom-0 m-5">
+          <button
+            ref={buttonRef}
+            onClick={() => setOpenActionPanel(prev => !prev)}
+            className="bg-background/50 hover:bg-background rounded-full p-2 transition"
+          >
+            <HugeiconsIcon className="h-4 w-4" icon={Settings02FreeIcons} />
+          </button>
+          {openActionPanel && <ActionPanel triggerRef={buttonRef} actions={actions} onClose={()=> setOpenActionPanel(false)}/>}
+        </div>
       )}
     </div>
   );

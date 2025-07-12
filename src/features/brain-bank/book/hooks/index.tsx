@@ -17,8 +17,8 @@ export const useGetBook = (bookId: number) => {
 
 // get all books
 export const useGetBooks = () => {
-  const { data, isLoading, error } = useGetBooksQuery();
-  return { data, isLoading, error };
+  const { data, isLoading, error, refetch } = useGetBooksQuery();
+  return { data, isLoading, error, refetch };
 };
 
 // create book
