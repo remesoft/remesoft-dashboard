@@ -20,6 +20,7 @@ export const chaptersApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["chapters"],
     }),
 
     deleteChapter: builder.mutation<{ status: boolean }, { chapterId: number; bookId: number }>({
