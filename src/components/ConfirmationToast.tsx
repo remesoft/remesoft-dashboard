@@ -15,7 +15,7 @@ const ConfirmationToast: React.FC<ConfirmationToastProps> = ({ message = "Are yo
           onClick={onCancel}
           className="bg-background border-border rounded-md border px-3 py-0.5 text-sm text-gray-700 transition hover:bg-gray-200"
         >
-          Cancle
+          Cancel
         </button>
         <button
           onClick={onConfirm}

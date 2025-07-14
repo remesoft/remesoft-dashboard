@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Options from "./Options";
-import { useQuestionData } from "../hooks/useQuestionsHook";
 import { useAnswerUpdate } from "../hooks/useAnswerUpdate";
-import { useParams } from "react-router";
+import { QuestionProps } from "../types";
 
-const OptionsGroup: React.FC = () => {
-  const { groupId } = useParams();
-  const { questions, isLoading, error, refetch } = useQuestionData(Number(groupId));
+interface OptionGroupProps {
+  questions: QuestionProps[] | undefined;
+}
+
+const OptionsGroup: React.FC<OptionGroupProps> = ({ questions }) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const { loadingQuestionId, handleAnswerUpdate } = useAnswerUpdate();
   const optionLabels = ["ক", "খ", "গ", "ঘ"];
@@ -30,11 +31,8 @@ const OptionsGroup: React.FC = () => {
   };
 
   return (
-    <div className="overflow-y-scroll py-3">
-      {isLoading && <p className="text-muted text-sm">Loading groups...</p>}
-      {error && <p className="text-sm text-red-500">Failed to load questions</p>}
-      {!isLoading &&
-        questions &&
+    <div className="overflow-y-auto py-3">
+      {questions &&
         questions.map((question, index) => (
           <Options
             id={question.id}
@@ -44,7 +42,6 @@ const OptionsGroup: React.FC = () => {
             labels={optionLabels}
             index={index}
             loading={loadingQuestionId === question.id}
-            refetchQuestions={refetch} // ✅ pass refetch function
           />
         ))}
     </div>

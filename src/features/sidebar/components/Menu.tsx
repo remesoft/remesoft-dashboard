@@ -8,7 +8,6 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ isDropdown, items }) => {
-  // const { items, isLoading, error } = useSidebarData();
   return (
     <ul className={`${isDropdown && "border-border ml-5 border-l pl-1.5"} text-secondary`}>
       {items.map((item: ItemProps) => (

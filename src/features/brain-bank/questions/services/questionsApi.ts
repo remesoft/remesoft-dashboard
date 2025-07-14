@@ -1,25 +1,22 @@
-// services/questionsApi.ts
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { QuestionProps } from "../types";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { baseApi } from "@/features/brain-bank/api";
 
-export const questionsApi = createApi({
-  reducerPath: "questionApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-  }),
+export const questionsApi = baseApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getQuestion: builder.query<QuestionProps[], number>({
       query: (groupId) => `brain-bank/questions/${groupId}`,
+      providesTags: (result, error, groupId) =>
+        result ? [{ type: "questions", id: groupId }] : [{ type: "questions" }],
     }),
 
-    // create question
     createQuestion: builder.mutation<any, { groupId: number }>({
       query: (body) => ({
         url: `brain-bank/questions/create`,
         method: "POST",
         body,
       }),
+      invalidatesTags: ["questions", "books"],
     }),
 
     // update answer mutation
@@ -29,6 +26,8 @@ export const questionsApi = createApi({
         method: "PATCH",
         body: { answer },
       }),
+
+      invalidatesTags: ["questions"],
     }),
 
     // Inside endpoints
@@ -37,6 +36,8 @@ export const questionsApi = createApi({
         url: `brain-bank/questions/${id}`,
         method: "DELETE",
       }),
+
+      invalidatesTags: ["questions"],
     }),
   }),
 });

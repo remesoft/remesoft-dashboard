@@ -6,8 +6,8 @@ import IconButton from "@/components/ui/IconButton";
 import Menu from "./components/Menu";
 import dashboards from "./data/dashboards";
 import pagesData from "./data/pages";
-import { useBooksData } from "../brain-bank/book/hooks/useBooksData";
 import { Book02FreeIcons, Books02FreeIcons, MultiplicationSignFreeIcons } from "@hugeicons/core-free-icons";
+import { useGetBooksQuery } from "../brain-bank/book/services/bookApi";
 
 // Sidebar props
 interface SidebarProps {
@@ -18,8 +18,8 @@ interface SidebarProps {
 // Component
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setSidebar }) => {
   const location = useLocation();
-  const currentDashboard = location.pathname.split("/")[1]; // e.g., "brain-bank"
-  const { books, isLoading, error } = useBooksData();
+  const currentDashboard = location.pathname.split("/")[1];
+  const { data: books, isLoading, error } = useGetBooksQuery();
 
   // Get static pages based on current dashboard
   const matchedPages = pagesData.find((item) => item.dashboard === currentDashboard)?.pages ?? [];

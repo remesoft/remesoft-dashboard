@@ -6,7 +6,6 @@ import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
 import { useCreateQuestion } from "../hooks/useCreateQuestion";
 import { useNavigate, useParams } from "react-router";
-import { useQuestionData } from "../hooks/useQuestionsHook";
 import { useGroupData } from "../../groups/hooks/useGroupData";
 import { useUpdateGroup } from "../../groups/hooks/useUpdateGroup";
 import { toast } from "react-toastify";
@@ -48,12 +47,12 @@ const Header: React.FC = () => {
 
   const { groupId, bookId } = useParams();
   const numericGroupId = Number(groupId);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { createQuestion, isLoading: isCreating } = useCreateQuestion();
-  const { questions, refetch } = useQuestionData(numericGroupId);
   const { group } = useGroupData(numericGroupId);
   const { updateGroup, isLoading: isUpdating } = useUpdateGroup();
   const { deleteGroup, isLoading: isDeleting } = useDeleteGroup();
@@ -99,7 +98,6 @@ const Header: React.FC = () => {
       onClick: async () => {
         try {
           await createQuestion();
-          refetch();
         } catch (err) {
           toast.error("Failed to create question.");
         }
@@ -143,13 +141,14 @@ const Header: React.FC = () => {
         disabled={isCreating || isUpdating}
       />
       <button
+        ref={buttonRef}
         onClick={() => setOpen((prev) => !prev)}
         className="hover:bg-background cursor-pointer rounded-full p-1.5 transition"
       >
         <HugeiconsIcon className="h-4 w-4" icon={MoreVerticalFreeIcons} />
       </button>
 
-      {open && <ActionPanel actions={actions} />}
+      {open && <ActionPanel triggerRef={buttonRef} onClose={() => setOpen(false)} actions={actions} />}
     </section>
   );
 };

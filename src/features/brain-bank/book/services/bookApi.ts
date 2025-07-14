@@ -1,5 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { baseApi } from "@/features/brain-bank/api";
 
 export interface BookType {
   id: number;
@@ -12,15 +11,13 @@ export interface BookType {
   totalQuestions: number;
 }
 
-export const bookApi = createApi({
-  reducerPath: "bookApi",
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-  tagTypes: ["books"],
+export const bookApi = baseApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     // get book query
     getBook: builder.query<BookType, number>({
       query: (id) => `brain-bank/books/${id}`,
-      providesTags: ["books"],
+      providesTags: (result, error, id) => [{ type: "books", id }],
     }),
 
     // get books query

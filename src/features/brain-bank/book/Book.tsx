@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import Media from "./components/Media";
 import Input from "./components/Input";
 import Info from "./components/Info";
-import { useBookData } from "./hooks/useBookData";
-import { useGetBook, useGetBooks, useUpdateBook } from "./hooks";
+import { useCreateBook, useUpdateBook } from "./hooks";
+import { useGetBookQuery } from "./services/bookApi";
 
 // 2. Component Definition
 const Book: React.FC = () => {
@@ -16,9 +16,9 @@ const Book: React.FC = () => {
   const { bookId } = useParams();
 
   // 4. Custom hooks
-  const { createBook } = useBookData();
+  const { createBook } = useCreateBook();
   const { updateBook } = useUpdateBook();
-  const { data: book } = useGetBook(Number(bookId));
+  const { data: book } = useGetBookQuery(Number(bookId));
 
   // 5. Local state
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -37,24 +37,13 @@ const Book: React.FC = () => {
 
     const formData = new FormData();
     formData.append("name", name);
-    if (selectedImage) {
-      formData.append("cover", selectedImage);
-    }
+    if (selectedImage) formData.append("cover", selectedImage);
 
-    try {
-      if (bookId) {
-        // Update existing book
-        await updateBook({ formData, bookId: Number(bookId) }).unwrap();
-        toast.success("Book updated successfully!");
-      } else {
-        // Create new book
-        const result = await createBook(formData).unwrap();
-        toast.success("Book created successfully!");
-        setTimeout(() => navigate(`/brain-bank/books/${result.id}`), 1000);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to save book!");
+    if (bookId) {
+      updateBook(Number(bookId), formData);
+    } else {
+      if (!selectedImage) return toast.error("Please select a book cover.");
+      createBook(formData);
     }
   };
 

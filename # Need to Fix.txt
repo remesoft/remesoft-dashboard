@@ -1,5 +1,7 @@
 # Need to Fix
 -----------------------------------------------
+Book Component
+	1. Book Update Component
 Groups Component
 	1. Group not remove after delete form UI. Needs reload.
 	3. Group name not updating in the ui shows after reload

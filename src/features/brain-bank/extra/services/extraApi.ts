@@ -1,13 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ExtraProps } from "../types";
+import { baseApi } from "../../api";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-export const extraApi = createApi({
-  reducerPath: "extraApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-  }),
+export const extraApi = baseApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getExtra: builder.query<ExtraProps, number>({
       query: (id) => `brain-bank/extras/${id}`,

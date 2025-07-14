@@ -3,11 +3,7 @@ import counterReducer from "../features/counter/counterSlice";
 import settingReducer from "../features/theme/themeSlice";
 import eventReducer from "../features/events/eventSlice";
 import brainBankReducer from "@/features/brain-bank/state";
-import { bookApi } from "@/features/brain-bank/book/services/bookApi";
-import { chaptersApi } from "@/features/brain-bank/chapters/services/chaptersApi";
-import { groupsApi } from "@/features/brain-bank/groups/services/groupApi";
-import { questionsApi } from "@/features/brain-bank/questions/services/questionsApi";
-import { extraApi } from "@/features/brain-bank/extra/services/extraApi";
+import { baseApi } from "@/features/brain-bank/api";
 
 export const store = configureStore({
   reducer: {
@@ -15,17 +11,7 @@ export const store = configureStore({
     theme: settingReducer,
     events: eventReducer,
     brainBank: brainBankReducer,
-    [bookApi.reducerPath]: bookApi.reducer,
-    [chaptersApi.reducerPath]: chaptersApi.reducer,
-    [groupsApi.reducerPath]: groupsApi.reducer,
-    [questionsApi.reducerPath]: questionsApi.reducer,
-    [extraApi.reducerPath]: extraApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(bookApi.middleware)
-      .concat(chaptersApi.middleware)
-      .concat(groupsApi.middleware)
-      .concat(questionsApi.middleware)
-      .concat(extraApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });

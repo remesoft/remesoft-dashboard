@@ -1,9 +1,13 @@
 import React from "react";
 
-const Meta: React.FC = () => {
+interface MetaProps {
+  total: number;
+}
+
+const Meta: React.FC<MetaProps> = ({ total }) => {
   return (
     <div className="bg-background/70 py-2.5 text-center">
-      <strong>25</strong> Questation in this book.
+      <strong>{total}</strong> Questions in this book.
     </div>
   );
 };

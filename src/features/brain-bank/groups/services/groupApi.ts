@@ -1,13 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GroupProps } from "../types";
+import { baseApi } from "../../api";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const groupsApi = createApi({
-  reducerPath: "groupApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-  }),
+export const groupApi = baseApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     // GET groups by some ID
     getGroups: builder.query<GroupProps, number>({
@@ -42,4 +40,4 @@ export const groupsApi = createApi({
 });
 
 // Export hooks
-export const { useGetGroupsQuery, useAddGroupMutation, useDeleteGroupMutation, useUpdateGroupMutation } = groupsApi;
+export const { useGetGroupsQuery, useAddGroupMutation, useDeleteGroupMutation, useUpdateGroupMutation } = groupApi;
