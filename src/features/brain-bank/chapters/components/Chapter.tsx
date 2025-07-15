@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChapterProps } from "../types";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { toast } from "react-toastify";
-import Group from "./Group";
+import Group from "../../groups/Group";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
 import { useAddGroup } from "../../groups/hooks/useAddGroup";
@@ -88,12 +88,15 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   }, [groups]);
   return (
     <li
-      className={`${isOpen && "bg-background/70"} text-secondary hover:bg-background/70 [.active]:bg-active/15 [.active]:text-active rounded-sm py-2 transition`}
+      className={`${isOpen && "bg-background/70 mb-1"} text-secondary border-border hover:bg-background/70 [.active]:bg-active/15 [.active]:text-active rounded-sm py-2 transition`}
     >
-      <div className="relative flex items-center justify-between px-1">
-        <div className="flex items-center gap-2.5 px-2">
+      <div className="relative flex cursor-pointer items-center justify-between px-1">
+        <div className="flex flex-grow items-center gap-2.5 px-2">
           <div className="group">
-            <HugeiconsIcon icon={BookOpen02FreeIcons} className={`${isOpen && "hidden"} h-5 w-5 group-hover:hidden`} />
+            <HugeiconsIcon
+              icon={BookOpen02FreeIcons}
+              className={`${isOpen && "hidden"} h-5 w-5 cursor-pointer group-hover:hidden`}
+            />
             <button className={`${isOpen ? "block" : "hidden"} group-hover:block`} onClick={toggleDropdown}>
               <HugeiconsIcon icon={ArrowRight01FreeIcons} className={`${isOpen && "rotate-90"} h-5 w-5 transition`} />
             </button>
@@ -104,7 +107,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
             value={chapterName}
             onChange={handleNameChange}
             onBlur={handleNameBlur}
-            className="font-medium"
+            className="fl flex-grow font-medium focus:outline-0"
             disabled={isUpdateLoading}
           />
         </div>
@@ -117,7 +120,9 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
           <HugeiconsIcon className="h-4 w-4" icon={MoreVerticalFreeIcons} />
         </button>
 
-        {openActionPanel && <ActionPanel triggerRef={buttonRef} actions={actions} onClose={() => setOpenActionPanel(false)} />}
+        {openActionPanel && (
+          <ActionPanel triggerRef={buttonRef} actions={actions} onClose={() => setOpenActionPanel(false)} />
+        )}
       </div>
 
       {isOpen && (

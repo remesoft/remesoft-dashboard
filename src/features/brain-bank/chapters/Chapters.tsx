@@ -19,13 +19,11 @@ const Chapters: React.FC = () => {
 
       {isLoading && <p className="text-muted p-2 text-sm">Loading chapters...</p>}
       {error && <p className="p-2 text-sm text-red-500">Failed to load chapters</p>}
-      <div className="overflow-y-auto p-2">
-        <ul>
-          {data?.map((chapter: ChapterProps, index: number) => (
-            <Chapter key={index} {...chapter} />
-          ))}
-        </ul>
-      </div>
+      <ul className="overflow-auto p-2">
+        {data?.map((chapter: ChapterProps, index: number) => (
+          <Chapter key={index} {...chapter} />
+        ))}
+      </ul>
     </div>
   );
 };

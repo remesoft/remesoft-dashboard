@@ -36,14 +36,15 @@ export const useAddChapter = () => {
 export const useDeleteChapter = () => {
   const [deleteChapterApi, { isLoading, error }] = useDeleteChapterMutation();
 
-  const handleDeleteChapter = async (chapterId: number, bookId: number, onSuccess?: () => void) => {
+  const handleDeleteChapter = async (chapterId: number, bookId: number) => {
     const message = "Do you really want to delete this chapter?";
+    const toastId = `chapter-toast-${chapterId}`;
 
     const onConfirm = async () => {
       try {
         await deleteChapterApi({ chapterId, bookId }).unwrap();
+        toast.dismiss(toastId);
         toast.success("Chapter deleted successfully!");
-        if (onSuccess) onSuccess();
       } catch (err) {
         console.error("❌ Failed to delete the chapter:", err);
         toast.error("Failed to delete the chapter.");
@@ -51,7 +52,7 @@ export const useDeleteChapter = () => {
       }
     };
 
-    toast(<ConfirmationToast message={message} onConfirm={onConfirm} />);
+    toast(<ConfirmationToast message={message} onConfirm={onConfirm} />, { toastId });
   };
 
   return {

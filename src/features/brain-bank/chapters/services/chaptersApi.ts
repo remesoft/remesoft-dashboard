@@ -1,5 +1,5 @@
 import { ChapterProps } from "../types";
-import { GroupProps } from "../../groups/types";
+import { GroupType } from "../../groups/types";
 import { baseApi } from "../../api";
 
 export const chaptersApi = baseApi.injectEndpoints({
@@ -10,7 +10,8 @@ export const chaptersApi = baseApi.injectEndpoints({
       providesTags: ["chapters"],
     }),
 
-    getGroups: builder.query<GroupProps[], number>({
+    getGroups: builder.query<GroupType[], number>({
+      providesTags: ["group"],
       query: (id) => `brain-bank/chapters/${id}/groups`,
     }),
 
@@ -20,7 +21,7 @@ export const chaptersApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["chapters"],
+      invalidatesTags: ["chapters", "books"],
     }),
 
     deleteChapter: builder.mutation<{ status: boolean }, { chapterId: number; bookId: number }>({
@@ -28,6 +29,7 @@ export const chaptersApi = baseApi.injectEndpoints({
         url: `brain-bank/chapters/${chapterId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["chapters", "books"],
     }),
 
     updateChapter: builder.mutation<ChapterProps[], { id: number; data: Partial<ChapterProps>; bookId: number }>({
@@ -36,6 +38,7 @@ export const chaptersApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["chapters"],
     }),
   }),
 });

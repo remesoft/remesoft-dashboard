@@ -1,19 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GroupProps } from "../types";
+import { GroupType } from "../types";
 import { baseApi } from "../../api";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const groupApi = baseApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     // GET groups by some ID
-    getGroups: builder.query<GroupProps, number>({
-      query: (id) => `brain-bank/groups/${id}`,
+    getGroup: builder.query<{ id: number; name: string }, number>({
+      query: (id) => {
+        return `brain-bank/groups/${id}`;
+      },
     }),
 
     // ADD group
-    addGroup: builder.mutation<GroupProps, { chapterId: number }>({
+    addGroup: builder.mutation<GroupType, { chapterId: number }>({
+      invalidatesTags: ["books", "group"],
       query: (body) => ({
         url: "brain-bank/groups/create",
         method: "POST",
@@ -23,13 +23,15 @@ export const groupApi = baseApi.injectEndpoints({
 
     // DELETE group
     deleteGroup: builder.mutation<void, number>({
+      invalidatesTags: ["books", "group"],
       query: (groupId) => ({
         url: `brain-bank/groups/${groupId}`,
         method: "DELETE",
       }),
     }),
 
-    updateGroup: builder.mutation<GroupProps, { id: number; data: Partial<GroupProps> }>({
+    updateGroup: builder.mutation<GroupType, { id: number; data: Partial<GroupType> }>({
+      invalidatesTags: ["group"],
       query: ({ id, data }) => ({
         url: `brain-bank/groups/${id}`,
         method: "PATCH",
@@ -40,4 +42,4 @@ export const groupApi = baseApi.injectEndpoints({
 });
 
 // Export hooks
-export const { useGetGroupsQuery, useAddGroupMutation, useDeleteGroupMutation, useUpdateGroupMutation } = groupApi;
+export const { useGetGroupQuery, useAddGroupMutation, useDeleteGroupMutation, useUpdateGroupMutation } = groupApi;

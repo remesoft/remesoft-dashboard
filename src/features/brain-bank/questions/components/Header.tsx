@@ -6,8 +6,6 @@ import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
 import { useCreateQuestion } from "../hooks/useCreateQuestion";
 import { useNavigate, useParams } from "react-router";
-import { useGroupData } from "../../groups/hooks/useGroupData";
-import { useUpdateGroup } from "../../groups/hooks/useUpdateGroup";
 import { toast } from "react-toastify";
 
 import {
@@ -18,6 +16,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { useDeleteGroup } from "../../groups/hooks/useDeleteGroup";
 import { Canvg } from "canvg";
+import { useGetGroupQuery } from "../../groups/services/groupApi";
+import { useUpdateGroup } from "../../groups/hooks/useUpdateGroup";
 
 const downloadQRCode = async (text: string) => {
   const svgString = ReactDOMServer.renderToStaticMarkup(<QRCodeSVG value={text} size={256} />);
@@ -44,16 +44,16 @@ const downloadQRCode = async (text: string) => {
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
-
   const { groupId, bookId } = useParams();
   const numericGroupId = Number(groupId);
+  const { data: group } = useGetGroupQuery(numericGroupId);
+
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { createQuestion, isLoading: isCreating } = useCreateQuestion();
-  const { group } = useGroupData(numericGroupId);
   const { updateGroup, isLoading: isUpdating } = useUpdateGroup();
   const { deleteGroup, isLoading: isDeleting } = useDeleteGroup();
 
@@ -62,16 +62,6 @@ const Header: React.FC = () => {
   useEffect(() => {
     if (group?.name) setGroupName(group.name);
   }, [group?.name]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value);
@@ -97,7 +87,7 @@ const Header: React.FC = () => {
       icon: Add01FreeIcons,
       onClick: async () => {
         try {
-          await createQuestion();
+          await createQuestion(numericGroupId);
         } catch (err) {
           toast.error("Failed to create question.");
         }

@@ -15,7 +15,7 @@ const Group: React.FC<GroupProps> = ({ id, label }) => {
       <NavLink
         to={`/brain-bank/books/${bookId}/groups/${id}`}
         className={({ isActive }) =>
-          `${isActive && "active"} list hover:bg-component border-border/50 [.active]:bg-component flex rounded-sm py-2 pl-9 hover:border [.active]:border`
+          `flex rounded-sm py-2 pl-9 ${isActive ? "bg-component outline-border/20 outline" : ""} hover:bg-component/40 hover:outline-border/30`
         }
       >
         <HugeiconsIcon icon={LicenseFreeIcons} className="mr-2 h-4 w-4" />

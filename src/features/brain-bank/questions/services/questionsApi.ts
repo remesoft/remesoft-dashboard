@@ -37,7 +37,7 @@ export const questionsApi = baseApi.injectEndpoints({
         method: "DELETE",
       }),
 
-      invalidatesTags: ["questions"],
+      invalidatesTags: ["questions", "books"],
     }),
   }),
 });
