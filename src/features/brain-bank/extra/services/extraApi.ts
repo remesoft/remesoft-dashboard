@@ -13,8 +13,8 @@ export const extraApi = baseApi.injectEndpoints({
       ExtraProps,
       {
         questionId: number;
-        type: string;
-        content: string;
+        type: string | undefined;
+        content: string | undefined;
       }
     >({
       query: (body) => ({

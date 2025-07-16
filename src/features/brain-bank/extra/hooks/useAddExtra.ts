@@ -1,21 +1,23 @@
+import { toast } from "react-toastify";
 import { useAddExtraMutation } from "../services/extraApi";
 
 export const useAddExtra = () => {
-  const [addExtraApi, { isLoading, error, data }] = useAddExtraMutation();
+  const [createExtra, { isLoading, error, data }] = useAddExtraMutation();
 
-  const addExtra = async (questionId: number, type: string, content: string) => {
+  const handleCreate = async (questionId: number, type: string | undefined, content: string | undefined) => {
     try {
-      const result = await addExtraApi({ questionId, type, content }).unwrap();
-      console.log("✅ Extra added:", result);
+      console.log(type, content);
+      const result = await createExtra({ questionId, type, content }).unwrap();
+      toast.success("Extra information added successfully.");
       return result;
     } catch (err) {
-      console.error("❌ Failed to add group:", err);
+      toast.error("Failed to add extra information.");
       throw err;
     }
   };
 
   return {
-    addExtra,
+    addExtra: handleCreate,
     isLoading,
     error,
     data,

@@ -61,7 +61,6 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
       onClick: async () => {
         try {
           await addGroup(id);
-          setOpenActionPanel(false);
           refetch();
         } catch (err) {
           alert("Failed to add group");

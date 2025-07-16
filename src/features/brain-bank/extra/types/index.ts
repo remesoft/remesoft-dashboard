@@ -1,5 +1,5 @@
 export interface ExtraProps {
   questionId: number;
-  type: "video" | "markdown";
-  content: string;
+  type: "video" | "markdown" | undefined;
+  content: string | undefined;
 }

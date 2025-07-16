@@ -1,22 +1,23 @@
 import React from "react";
 
 interface PreviewProps {
-  type: "video" | "markdown";
-  videoUrl: string;
-  markdownText: string;
+  type: "video" | "markdown" | undefined;
+  value: string | undefined;
 }
 
-const Preview: React.FC<PreviewProps> = ({ type, videoUrl, markdownText }) => {
-  if (type === "video") {
-    const embedUrl = videoUrl.replace("watch?v=", "embed/");
+const Preview: React.FC<PreviewProps> = ({ type, value }) => {
+  if (type === "video" || type === undefined) {
+    const embedUrl = value?.replace("watch?v=", "embed/");
     return (
-      <div className="mt-4">
-        <iframe width="100%" height="315" src={embedUrl} title="YouTube Video" allowFullScreen />
-      </div>
+      value && (
+        <div className="p-2">
+          <iframe className="rounded-md" width="100%" src={embedUrl} title="YouTube Video" allowFullScreen />
+        </div>
+      )
     );
   }
 
-  return <div className="mt-4 border bg-gray-50 p-4 whitespace-pre-wrap">{markdownText}</div>;
+  return <div className="mt-4 border bg-gray-50 p-4 whitespace-pre-wrap">{value}</div>;
 };
 
 export default Preview;

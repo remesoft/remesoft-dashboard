@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
-import Meta from "./components/Meta";
 import FormInput from "./components/FormInput";
 import Preview from "./components/Preview";
 import { ActionPanelProps } from "@/types";
 import { Delete02FreeIcons, FloppyDiskFreeIcons } from "@hugeicons/core-free-icons";
 import { useExtraData } from "./hooks/useExtraData";
 import { useNavigate, useParams } from "react-router";
-import { useAddExtra } from "./hooks/useAddExtra";
 import { useDeleteExtra } from "./hooks/useDeleteExtra";
+import { useAddExtra } from "./hooks/useAddExtra";
+import Tabs from "./components/Tabs";
 
 const Extra: React.FC = () => {
+  const navigate = useNavigate();
   const { questionId, bookId, groupId } = useParams();
   const numericQuestionId = Number(questionId);
-
   const { extra, isLoading, error } = useExtraData(numericQuestionId);
-  const { addExtra, isLoading: isAdding } = useAddExtra();
-  const { deleteExtra } = useDeleteExtra();
-  const navigate = useNavigate();
 
-  const [type, setType] = useState<"video" | "markdown">("video");
+  const { addExtra } = useAddExtra();
+  const { deleteExtra } = useDeleteExtra();
   const [mode, setMode] = useState<"insert" | "preview">("insert");
-  const [videoUrl, setVideoUrl] = useState("");
-  const [markdownText, setMarkdownText] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
+
+  const [inputType, setInputType] = useState<"video" | "markdown" | undefined>("video");
+  const [inputValue, setInputValue] = useState<string | undefined>("");
 
   useEffect(() => {
-    if (extra?.type) {
-      setType(extra.type);
-      if (extra.type === "video") {
-        setVideoUrl(extra.content);
-      } else if (extra.type === "markdown") {
-        setMarkdownText(extra.content);
-      }
-    }
+    if (extra?.content) setInputValue(extra.content);
+    if (extra?.type) setInputType(extra?.type);
   }, [extra]);
 
   const actions: ActionPanelProps[] = [
@@ -40,14 +34,8 @@ const Extra: React.FC = () => {
       label: "Save Extra",
       icon: FloppyDiskFreeIcons,
       onClick: async () => {
-        const content = type === "video" ? videoUrl : markdownText;
-        try {
-          await addExtra(numericQuestionId, type, content);
-          alert("✅ Extra saved successfully!");
-        } catch (err) {
-          alert("❌ Failed to save extra.");
-          console.error(err);
-        }
+        addExtra(numericQuestionId, inputType, inputValue);
+        setOpen(false);
       },
     },
     {
@@ -66,23 +54,14 @@ const Extra: React.FC = () => {
 
   return (
     <div className="bg-component border-border/70 w-88 rounded-md border">
-      <Header actions={actions} />
-      <Meta mode={mode} setMode={setMode} />
-
-      {mode === "insert" ? (
-        <FormInput
-          type={type}
-          setType={setType}
-          videoUrl={videoUrl}
-          setVideoUrl={setVideoUrl}
-          markdownText={markdownText}
-          setMarkdownText={setMarkdownText}
-        />
+      <Header actions={actions} isOpen={open} setOpen={setOpen} />
+      <Tabs tab={mode} setMode={setMode} />
+      {mode === "preview" ? (
+        <Preview type={inputType} value={inputValue} />
       ) : (
-        <Preview type={type} videoUrl={videoUrl} markdownText={markdownText} />
+        <FormInput setInputValue={setInputValue} setInputType={setInputType} type={inputType} value={inputValue} />
       )}
     </div>
   );
 };
-
 export default Extra;
