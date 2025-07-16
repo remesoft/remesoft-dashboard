@@ -18,10 +18,13 @@ const routes = createBrowserRouter([
       {
         path: "/brain-bank/dashboard",
         element: <BrainBankDashboard />,
+<<<<<<< HEAD
       },
       {
         path: "/brain-bank/book/:id",
         element: <Book />,
+=======
+>>>>>>> development
       },
       {
         path: "/brain-bank/create-book",

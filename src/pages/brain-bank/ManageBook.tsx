@@ -1,3 +1,7 @@
+<<<<<<< HEAD:src/pages/brain-bank/ManageBook.tsx
+<<<<<<<< HEAD:src/pages/brain-bank/ManageBook.tsx
+=======
+>>>>>>> development:src/pages/brain_bank/ManageBook.tsx
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import PageInfo from "@/components/PageInfo";
@@ -10,12 +14,30 @@ import Extra from "@/features/brain-bank/extra";
 
 const ManageBook: React.FC = () => {
   const pageTitle = "Dashboard";
+<<<<<<< HEAD:src/pages/brain-bank/ManageBook.tsx
+========
+import PageInfo from "@/components/PageInfo";
+import Book from "@/features/brain-bank/book";
+import React from "react";
+
+const CreateBook: React.FC = () => {
+  const pageTitle = "Create Book";
+>>>>>>>> development:src/pages/brain_bank/CreateBook.tsx
+  const pageBreadcrumbs = [
+    { label: "Remesoft", link: "/" },
+    { label: "Brain Bank", link: "/brain-bank" },
+    { label: "Create Book", link: "/create-book" },
+  ];
+
+<<<<<<<< HEAD:src/pages/brain-bank/ManageBook.tsx
+=======
   const pageBreadcrumbs = [
     { label: "Remesoft", link: "/" },
     { label: "Brain Bank", link: "/brain-bank" },
     { label: "Create", link: "/create" },
   ];
 
+>>>>>>> development:src/pages/brain_bank/ManageBook.tsx
   const location = useLocation();
   const isExtraRoute = location.pathname.endsWith("/extra");
 
@@ -61,6 +83,17 @@ const ManageBook: React.FC = () => {
         {groupId && <Questions />}
         {questionId && <Extra />}
       </motion.div>
+<<<<<<< HEAD:src/pages/brain-bank/ManageBook.tsx
+========
+  return (
+    <div className="flex h-full flex-col">
+      <PageInfo title={pageTitle} breadcrumbs={pageBreadcrumbs} />
+      <div className="flex flex-grow items-center justify-center">
+        <Book />
+      </div>
+>>>>>>>> development:src/pages/brain_bank/CreateBook.tsx
+=======
+>>>>>>> development:src/pages/brain_bank/ManageBook.tsx
     </div>
   );
 };

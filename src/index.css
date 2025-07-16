@@ -63,6 +63,9 @@ body {
 .sidebar {
   @apply bg-component absolute flex h-screen w-72 shrink-[0] flex-col gap-4 transition ease-in-out lg:static lg:translate-0;
 }
+.sidebar {
+  @apply bg-component absolute flex h-screen w-72 shrink-[0] flex-col gap-4 transition ease-in-out lg:static lg:translate-0;
+}
 
 .sidebar_menu_item {
   @apply hover:bg-active text-active hover:text-active flex items-center gap-4 rounded-md px-3 py-2 font-medium transition ease-in-out;
