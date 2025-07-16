@@ -1,18 +1,22 @@
 import React from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { IconButtonProps } from "../../types/brain-bank/props-type.js";
+import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 
+// props type
+interface IconButtonProps {
+  className?: string;
+  icon: IconSvgElement;
+  onClick?: () => void;
+}
+
+// render component
 const IconButton: React.FC<IconButtonProps> = (props) => {
+  const { className, icon, onClick } = props;
   return (
-    <button
-      className={`${props.className} hover:bg-header-search rounded-full p-2`}
-    >
-      <HugeiconsIcon
-        icon={props.icon}
-        className="text-header-item hover:text-header-item-hover h-6 w-6"
-      />
+    <button onClick={onClick} className={`${className} rounded-full p-2 transition`}>
+      <HugeiconsIcon icon={icon} className="text-header-item hover:text-header-item-hover h-6 w-6" />
     </button>
   );
 };
 
+// export component
 export default IconButton;

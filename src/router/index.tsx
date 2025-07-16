@@ -1,11 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Dashboard from "../layout/Dashboard";
-import Home from "../pages/Home";
-import CreateBook from "../pages/brain-bank/CreateBook";
+import CreateBook from "@/pages/brain_bank/CreateBook";
 import Test from "../layout/Test";
-import Book from "@/pages/brain-bank/Book";
-import Invoice from "@/pages/zson/Invoice";
-import InvoicePreview from "@/pages/zson/InvoicePreview";
+import ManageBook from "@/pages/brain_bank/ManageBook";
+import BrainBankDashboard from "@/pages/brain_bank/BrainBankDashboard";
+import DownloadDatabase from "@/pages/brain_bank/DownloadDatabase";
 
 const routes = createBrowserRouter([
   {
@@ -14,7 +13,11 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Navigate to="/brain-bank/dashboard" />,
+      },
+      {
+        path: "/brain-bank/dashboard",
+        element: <BrainBankDashboard />,
       },
       {
         path: "/brain-bank/book/:id",
@@ -25,12 +28,20 @@ const routes = createBrowserRouter([
         element: <CreateBook />,
       },
       {
-        path: "/zson/create-invoice",
-        element: <Invoice />,
+        path: "/brain-bank/download-database",
+        element: <DownloadDatabase />,
       },
       {
-        path: "/zson/preview-invoice",
-        element: <InvoicePreview />,
+        path: "/brain-bank/books/:bookId",
+        element: <ManageBook />,
+      },
+      {
+        path: "/brain-bank/books/:bookId/groups/:groupId",
+        element: <ManageBook />,
+      },
+      {
+        path: "/brain-bank/books/:bookId/groups/:groupId/questions/:questionId",
+        element: <ManageBook />,
       },
     ],
   },

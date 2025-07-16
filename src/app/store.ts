@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "@/features/counter/counterSlice";
-import settingReducer from "@/features/theme/themeSlice";
-import eventReducer from "@/features/events/eventSlice";
-import bookReducer from "@/features/brain-back/book-slice";
-import groupReducer from "@/features/brain-back/group-slice";
+import counterReducer from "../features/counter/counterSlice";
+import settingReducer from "../features/theme/themeSlice";
+import eventReducer from "../features/events/eventSlice";
+import brainBankReducer from "@/features/brain-bank/state";
+import { baseApi } from "@/features/brain-bank/api";
 
 export const store = configureStore({
   reducer: {
@@ -12,9 +12,8 @@ export const store = configureStore({
     counter: counterReducer,
     theme: settingReducer,
     events: eventReducer,
+    brainBank: brainBankReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });
-
-// Typed hooks helpers
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
