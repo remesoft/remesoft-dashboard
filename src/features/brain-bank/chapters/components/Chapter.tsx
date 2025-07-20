@@ -136,7 +136,7 @@ const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
             </ul>
           )}
           {!isGroupsLoading && groups && groups.length === 0 && (
-            <p className="text-muted text-sm italic">No groups found</p>
+            <p className="text-muted pl-10 text-sm italic">No groups found</p>
           )}
         </div>
       )}

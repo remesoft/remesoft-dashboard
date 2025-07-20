@@ -1,11 +1,8 @@
-import ActionPanel from "@/components/ActionPanel";
-import { Add01FreeIcons, Delete02FreeIcons, MoreVerticalFreeIcons, PlusSignIcon } from "@hugeicons/core-free-icons";
+import { PlusSignIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import React, { useEffect, useRef, useState } from "react";
-import { ActionPanelProps } from "@/types";
+import React, { useRef } from "react";
 import { useAddChapter } from "../hooks";
 import { useParams } from "react-router";
-import { useGetChapters } from "../hooks";
 
 const Header: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);

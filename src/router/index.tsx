@@ -41,10 +41,6 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/test",
-    element: <Test />,
-  },
 ]);
 
 export default routes;

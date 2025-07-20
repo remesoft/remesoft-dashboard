@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router";
 import { useDeleteExtra } from "./hooks/useDeleteExtra";
 import { useAddExtra } from "./hooks/useAddExtra";
 import Tabs from "./components/Tabs";
+import { motion, useAnimation } from "framer-motion";
 
 const Extra: React.FC = () => {
   const navigate = useNavigate();
@@ -20,21 +21,39 @@ const Extra: React.FC = () => {
   const { deleteExtra } = useDeleteExtra();
   const [mode, setMode] = useState<"insert" | "preview">("insert");
   const [open, setOpen] = useState<boolean>(false);
-
   const [inputType, setInputType] = useState<"video" | "markdown" | undefined>("video");
-  const [inputValue, setInputValue] = useState<string | undefined>("");
+  const [inputValue, setInputValue] = useState<string>("");
 
+  const controls = useAnimation();
+
+  // Reset or update form data whenever questionId or extra changes
   useEffect(() => {
-    if (extra?.content) setInputValue(extra.content);
-    if (extra?.type) setInputType(extra?.type);
-  }, [extra]);
+    if (extra) {
+      setInputValue(extra.content ?? "");
+      setInputType(extra.type ?? "video");
+    } else {
+      setInputValue("");
+      setInputType("video");
+    }
+  }, [extra, questionId]);
+
+  // 🚀 Trigger bounce animation when questionId changes
+  useEffect(() => {
+    controls.start({
+      scale: [1, 1.02, 0.95, 1.01, 1],
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    });
+  }, [questionId]);
 
   const actions: ActionPanelProps[] = [
     {
       label: "Save Extra",
       icon: FloppyDiskFreeIcons,
       onClick: async () => {
-        addExtra(numericQuestionId, inputType, inputValue);
+        await addExtra(numericQuestionId, inputType, inputValue);
         setOpen(false);
       },
     },
@@ -44,7 +63,7 @@ const Extra: React.FC = () => {
       onClick: async () => {
         const confirmed = window.confirm("Are you sure you want to delete this extra?");
         if (confirmed) {
-          await deleteExtra(Number(questionId), () => {
+          await deleteExtra(numericQuestionId, () => {
             navigate(`/brain-bank/books/${bookId}/groups/${groupId}`);
           });
         }
@@ -53,7 +72,7 @@ const Extra: React.FC = () => {
   ];
 
   return (
-    <div className="bg-component border-border/70 w-88 rounded-md border">
+    <motion.div animate={controls} className="bg-component border-border/70 w-88 rounded-md border">
       <Header actions={actions} isOpen={open} setOpen={setOpen} />
       <Tabs tab={mode} setMode={setMode} />
       {mode === "preview" ? (
@@ -61,7 +80,8 @@ const Extra: React.FC = () => {
       ) : (
         <FormInput setInputValue={setInputValue} setInputType={setInputType} type={inputType} value={inputValue} />
       )}
-    </div>
+    </motion.div>
   );
 };
+
 export default Extra;

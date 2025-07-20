@@ -2,67 +2,71 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import { QRCodeSVG } from "qrcode.react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ActionPanelProps } from "@/types";
-import ActionPanel from "@/components/ActionPanel";
-import { useCreateQuestion } from "../hooks/useCreateQuestion";
-import { useNavigate, useParams } from "react-router";
-import { toast } from "react-toastify";
-
 import {
   Add01FreeIcons,
   CloudDownloadFreeIcons,
   Delete02FreeIcons,
   MoreVerticalFreeIcons,
 } from "@hugeicons/core-free-icons";
+
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
+
+// Custom Hooks
+import { useCreateQuestion } from "../hooks/useCreateQuestion";
 import { useDeleteGroup } from "../../groups/hooks/useDeleteGroup";
-import { Canvg } from "canvg";
 import { useGetGroupQuery } from "../../groups/services/groupApi";
 import { useUpdateGroup } from "../../groups/hooks/useUpdateGroup";
 
+// Components & Types
+import ActionPanel from "@/components/ActionPanel";
+import { ActionPanelProps } from "@/types";
+
+// Utils
+import { Canvg } from "canvg";
+
+// ------------------ Utility Functions ------------------ //
 const downloadQRCode = async (text: string) => {
-  const svgString = ReactDOMServer.renderToStaticMarkup(<QRCodeSVG value={text} size={256} />);
+  const svg = ReactDOMServer.renderToStaticMarkup(<QRCodeSVG value={text} size={256} />);
   const canvas = document.createElement("canvas");
-  canvas.width = 256;
-  canvas.height = 256;
+  canvas.width = canvas.height = 256;
 
   const ctx = canvas.getContext("2d");
-  if (!ctx) {
-    console.error("Canvas context is null");
-    return;
-  }
+  if (!ctx) return console.error("Failed to get canvas context");
 
-  const v = await Canvg.from(ctx, svgString);
+  const v = await Canvg.from(ctx, svg);
   await v.render();
 
   const pngUrl = canvas.toDataURL("image/png");
-
   const link = document.createElement("a");
   link.href = pngUrl;
   link.download = "qr-code.png";
   link.click();
 };
 
+// ------------------ Component ------------------ //
 const Header: React.FC = () => {
-  const navigate = useNavigate();
   const { groupId, bookId } = useParams();
   const numericGroupId = Number(groupId);
+  const navigate = useNavigate();
+
+  // Hooks
   const { data: group } = useGetGroupQuery(numericGroupId);
-
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
   const { createQuestion, isLoading: isCreating } = useCreateQuestion();
   const { updateGroup, isLoading: isUpdating } = useUpdateGroup();
   const { deleteGroup, isLoading: isDeleting } = useDeleteGroup();
 
+  // Local state
   const [groupName, setGroupName] = useState(group?.name || "");
+  const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
+  // Effects
   useEffect(() => {
     if (group?.name) setGroupName(group.name);
   }, [group?.name]);
 
+  // Event Handlers
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value);
   };
@@ -70,58 +74,49 @@ const Header: React.FC = () => {
   const handleNameBlur = async () => {
     if (group && group.name !== groupName.trim()) {
       try {
-        await updateGroup({
-          id: numericGroupId,
-          data: { name: groupName.trim() },
-        });
+        await updateGroup({ id: numericGroupId, data: { name: groupName.trim() } });
         toast.success("Group name updated!");
-      } catch (err) {
+      } catch {
         toast.error("Failed to update group name.");
       }
     }
   };
 
+  const handleDeleteGroup = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete this group?");
+    if (!confirmed) return;
+
+    try {
+      await deleteGroup(numericGroupId);
+      toast.success("Group deleted successfully!");
+      navigate(`/brain-bank/books/${bookId}`);
+    } catch {
+      toast.error("Failed to delete group.");
+    }
+  };
+
+  const handleAddQuestion = async () => {
+    try {
+      await createQuestion(numericGroupId);
+    } catch {
+      toast.error("Failed to create question.");
+    }
+  };
+
+  // Actions for dropdown
   const actions: ActionPanelProps[] = [
-    {
-      label: "Add Question",
-      icon: Add01FreeIcons,
-      onClick: async () => {
-        try {
-          await createQuestion(numericGroupId);
-        } catch (err) {
-          toast.error("Failed to create question.");
-        }
-      },
-    },
+    { label: "Add Question", icon: Add01FreeIcons, onClick: handleAddQuestion },
     {
       label: "Download QR code",
       icon: CloudDownloadFreeIcons,
-      onClick: () => {
-        const url = `${window.location.origin}/brain-bank/groups/${groupId}`;
-        console.log(url);
-        downloadQRCode(url);
-      },
+      onClick: () => groupId && downloadQRCode(groupId),
     },
-    {
-      label: "Delete Group",
-      icon: Delete02FreeIcons,
-      onClick: async () => {
-        const confirmed = window.confirm("Are you sure you want to delete this group?");
-        if (!confirmed) return;
-
-        try {
-          await deleteGroup(numericGroupId);
-          toast.success("Group deleted successfully!");
-          navigate(`/brain-bank/books/${bookId}`);
-        } catch (err) {
-          toast.error("Failed to delete group.");
-        }
-      },
-    },
+    { label: "Delete Group", icon: Delete02FreeIcons, onClick: handleDeleteGroup },
   ];
 
+  // ------------------ JSX ------------------ //
   return (
-    <section ref={dropdownRef} className="relative flex items-center px-4 py-3 font-semibold">
+    <section className="relative flex items-center px-4 py-3 font-semibold">
       <input
         type="text"
         value={groupName}
@@ -130,6 +125,7 @@ const Header: React.FC = () => {
         className="flex-grow border-none bg-transparent text-base outline-none"
         disabled={isCreating || isUpdating}
       />
+
       <button
         ref={buttonRef}
         onClick={() => setOpen((prev) => !prev)}

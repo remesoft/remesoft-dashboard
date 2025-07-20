@@ -5,7 +5,7 @@ import Option from "./Option";
 import { useBengaliNumber } from "@/hooks";
 import ActionPanel from "@/components/ActionPanel";
 import { ActionPanelProps } from "@/types";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDeleteQuestion } from "../hooks";
 
 interface OptionsProps {
@@ -18,6 +18,7 @@ interface OptionsProps {
 }
 
 const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels, loading }) => {
+  const { bookId, groupId } = useParams();
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { deleteQuestion } = useDeleteQuestion();
@@ -29,7 +30,7 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
       label: "Add Extra",
       icon: Add01FreeIcons,
       onClick: () => {
-        navigate("questions/" + id);
+        navigate(`/brain-bank/books/${bookId}/groups/${groupId}/questions/${id}`);
         setOpen(false);
       },
     },
@@ -56,7 +57,7 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
             onClick={() => !loading && onSelect(i)}
           />
         ))}
-        {loading && <span className="text-muted ml-2 text-xs">Saving...</span>}
+        {/* {loading && <span className="text-muted ml-2 text-xs">Saving...</span>} */}
       </div>
 
       <button
