@@ -1,4 +1,3 @@
-import ActionPanel from "@/components/ActionPanel";
 import { IconSvgElement } from "@hugeicons/react";
 
 // common props for components
