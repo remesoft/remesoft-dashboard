@@ -35,7 +35,7 @@ export const groupApi = baseApi.injectEndpoints({
       query: ({ id, name }) => ({
         url: `brain-bank/groups/${id}`,
         method: "PATCH",
-        body: name,
+        body: { name },
       }),
     }),
   }),
