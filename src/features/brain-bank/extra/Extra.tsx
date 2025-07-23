@@ -10,12 +10,14 @@ import { useDeleteExtra } from "./hooks/useDeleteExtra";
 import { useAddExtra } from "./hooks/useAddExtra";
 import Tabs from "./components/Tabs";
 import { motion, useAnimation } from "framer-motion";
+import { useUpdateExtra } from "./hooks/useUpdateExtra";
 
 const Extra: React.FC = () => {
   const navigate = useNavigate();
   const { questionId, bookId, groupId } = useParams();
   const numericQuestionId = Number(questionId);
-  const { extra, isLoading, error } = useExtraData(numericQuestionId);
+  const { extra } = useExtraData(numericQuestionId);
+  const { updateExtra } = useUpdateExtra();
 
   const { addExtra } = useAddExtra();
   const { deleteExtra } = useDeleteExtra();
@@ -37,7 +39,6 @@ const Extra: React.FC = () => {
     }
   }, [extra, questionId]);
 
-  // 🚀 Trigger bounce animation when questionId changes
   useEffect(() => {
     controls.start({
       scale: [1, 1.02, 0.95, 1.01, 1],
@@ -50,24 +51,18 @@ const Extra: React.FC = () => {
 
   const actions: ActionPanelProps[] = [
     {
-      label: "Save Extra",
+      label: extra ? "Update Extra" : "Save Extra",
       icon: FloppyDiskFreeIcons,
       onClick: async () => {
-        await addExtra(numericQuestionId, inputType, inputValue);
+        if (extra) await updateExtra({ questionId: numericQuestionId, type: inputType, content: inputValue });
+        else await addExtra(numericQuestionId, inputType, inputValue);
         setOpen(false);
       },
     },
     {
       label: "Remove Extra",
       icon: Delete02FreeIcons,
-      onClick: async () => {
-        const confirmed = window.confirm("Are you sure you want to delete this extra?");
-        if (confirmed) {
-          await deleteExtra(numericQuestionId, () => {
-            navigate(`/brain-bank/books/${bookId}/groups/${groupId}`);
-          });
-        }
-      },
+      onClick: () => deleteExtra(numericQuestionId),
     },
   ];
 

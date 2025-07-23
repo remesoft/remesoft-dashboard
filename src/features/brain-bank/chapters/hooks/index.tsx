@@ -52,7 +52,9 @@ export const useDeleteChapter = () => {
       }
     };
 
-    toast(<ConfirmationToast message={message} onConfirm={onConfirm} />, { toastId });
+    toast(<ConfirmationToast message={message} onConfirm={onConfirm} onCancel={() => toast.dismiss(toastId)} />, {
+      toastId,
+    });
   };
 
   return {

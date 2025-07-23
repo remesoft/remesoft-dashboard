@@ -41,6 +41,7 @@ const OptionsGroup: React.FC<OptionGroupProps> = ({ questions }) => {
             onSelect={(answerIndex) => handleSelect(index, answerIndex)}
             labels={optionLabels}
             index={index}
+            hasExtra={question.hasExtra}
             loading={loadingQuestionId === question.id}
           />
         ))}

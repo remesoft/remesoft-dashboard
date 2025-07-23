@@ -6,8 +6,7 @@ export const questionsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getQuestion: builder.query<QuestionProps[], number>({
       query: (groupId) => `brain-bank/questions/${groupId}`,
-      providesTags: (result, error, groupId) =>
-        result ? [{ type: "questions", id: groupId }] : [{ type: "questions" }],
+      providesTags: ["questions"],
     }),
 
     createQuestion: builder.mutation<any, { groupId: number }>({

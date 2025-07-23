@@ -8,7 +8,7 @@ export const extraApi = baseApi.injectEndpoints({
       query: (id) => `brain-bank/extras/${id}`,
     }),
 
-    // ADD group
+    // add extra information
     addExtra: builder.mutation<
       ExtraProps,
       {
@@ -17,6 +17,7 @@ export const extraApi = baseApi.injectEndpoints({
         content: string | undefined;
       }
     >({
+      invalidatesTags: ["questions"],
       query: (body) => ({
         url: "brain-bank/extras/create",
         method: "POST",
@@ -24,8 +25,17 @@ export const extraApi = baseApi.injectEndpoints({
       }),
     }),
 
+    updateExtra: builder.mutation<ExtraProps, Partial<ExtraProps>>({
+      query: (body) => ({
+        url: `brain-bank/extras/${body.questionId}`,
+        method: "PATCH",
+        body,
+      }),
+    }),
+
     // Inside endpoints
     deleteExtra: builder.mutation<{ status: boolean }, number>({
+      invalidatesTags: ["questions"],
       query: (id) => ({
         url: `brain-bank/extras/${id}`,
         method: "DELETE",
@@ -35,4 +45,4 @@ export const extraApi = baseApi.injectEndpoints({
 });
 
 // Export hooks
-export const { useGetExtraQuery, useAddExtraMutation, useDeleteExtraMutation } = extraApi;
+export const { useGetExtraQuery, useAddExtraMutation, useUpdateExtraMutation, useDeleteExtraMutation } = extraApi;
