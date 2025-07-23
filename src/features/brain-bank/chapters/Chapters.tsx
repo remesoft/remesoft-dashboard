@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Meta from "./components/Meta";
 import Chapter from "./components/Chapter";
 import { ChapterProps } from "./types";
-import { useGetChaptersQuery } from "./services/chaptersApi";
+import { useGetChaptersQuery } from "./api";
 
 const Chapters: React.FC = () => {
   const params = useParams();

@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { chaptersApi } from "../services/chaptersApi";
+import { chaptersApi } from "../api";
 import ConfirmationToast from "@/components/ConfirmationToast";
 
 const { useAddChapterMutation, useDeleteChapterMutation, useUpdateChapterMutation } = chaptersApi;

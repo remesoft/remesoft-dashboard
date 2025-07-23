@@ -12,10 +12,10 @@ import { toast } from "react-toastify";
 import Group from "../../groups/Group";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
-import { useAddGroup } from "../../groups/hooks/useAddGroup";
 import { useDeleteChapter } from "../hooks";
 import { useUpdateChapter } from "../hooks";
-import { useGetGroupsQuery } from "../services/chaptersApi";
+import { useGetGroupsQuery } from "../api";
+import { useAddGroup } from "../../groups/hooks";
 
 const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const [isOpen, setIsOpen] = useState(false);

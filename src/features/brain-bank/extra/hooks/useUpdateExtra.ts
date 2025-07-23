@@ -1,4 +1,4 @@
-import { useUpdateExtraMutation } from "../services/extraApi";
+import { useUpdateExtraMutation } from "../services";
 import { toast } from "react-toastify";
 import { ExtraProps } from "../types";
 

@@ -14,9 +14,7 @@ import { toast } from "react-toastify";
 
 // Custom Hooks
 import { useCreateQuestion } from "../hooks/useCreateQuestion";
-import { useDeleteGroup } from "../../groups/hooks/useDeleteGroup";
 import { useGetGroupQuery } from "../../groups/services/groupApi";
-import { useUpdateGroup } from "../../groups/hooks/useUpdateGroup";
 
 // Components & Types
 import ActionPanel from "@/components/ActionPanel";
@@ -24,6 +22,7 @@ import { ActionPanelProps } from "@/types";
 
 // Utils
 import { Canvg } from "canvg";
+import { useDeleteGroup, useUpdateGroup } from "../../groups/hooks";
 
 // ------------------ Utility Functions ------------------ //
 const downloadQRCode = async (text: string) => {
@@ -46,9 +45,8 @@ const downloadQRCode = async (text: string) => {
 
 // ------------------ Component ------------------ //
 const Header: React.FC = () => {
-  const { groupId, bookId } = useParams();
+  const { groupId } = useParams();
   const numericGroupId = Number(groupId);
-  const navigate = useNavigate();
 
   // Hooks
   const { data: group } = useGetGroupQuery(numericGroupId);
@@ -71,30 +69,6 @@ const Header: React.FC = () => {
     setGroupName(e.target.value);
   };
 
-  const handleNameBlur = async () => {
-    if (group && group.name !== groupName.trim()) {
-      try {
-        await updateGroup({ id: numericGroupId, data: { name: groupName.trim() } });
-        toast.success("Group name updated!");
-      } catch {
-        toast.error("Failed to update group name.");
-      }
-    }
-  };
-
-  const handleDeleteGroup = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete this group?");
-    if (!confirmed) return;
-
-    try {
-      await deleteGroup(numericGroupId);
-      toast.success("Group deleted successfully!");
-      navigate(`/brain-bank/books/${bookId}`);
-    } catch {
-      toast.error("Failed to delete group.");
-    }
-  };
-
   const handleAddQuestion = async () => {
     try {
       await createQuestion(numericGroupId);
@@ -111,7 +85,7 @@ const Header: React.FC = () => {
       icon: CloudDownloadFreeIcons,
       onClick: () => groupId && downloadQRCode(groupId),
     },
-    { label: "Delete Group", icon: Delete02FreeIcons, onClick: handleDeleteGroup },
+    { label: "Delete Group", icon: Delete02FreeIcons, onClick: () => deleteGroup(numericGroupId) },
   ];
 
   // ------------------ JSX ------------------ //
@@ -121,7 +95,7 @@ const Header: React.FC = () => {
         type="text"
         value={groupName}
         onChange={handleNameChange}
-        onBlur={handleNameBlur}
+        onBlur={() => updateGroup(numericGroupId, groupName.trim())}
         className="flex-grow border-none bg-transparent text-base outline-none"
         disabled={isCreating || isUpdating}
       />

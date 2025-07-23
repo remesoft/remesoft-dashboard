@@ -30,12 +30,12 @@ export const groupApi = baseApi.injectEndpoints({
       }),
     }),
 
-    updateGroup: builder.mutation<GroupType, { id: number; data: Partial<GroupType> }>({
+    updateGroup: builder.mutation<GroupType, { id: number; name: string }>({
       invalidatesTags: ["group"],
-      query: ({ id, data }) => ({
+      query: ({ id, name }) => ({
         url: `brain-bank/groups/${id}`,
         method: "PATCH",
-        body: data,
+        body: name,
       }),
     }),
   }),

@@ -1,4 +1,4 @@
-import { useGetExtraQuery } from "../services/extraApi";
+import { useGetExtraQuery } from "../services";
 
 export const useExtraData = (chapterId: number) => {
   const { data, isLoading, error } = useGetExtraQuery(chapterId);

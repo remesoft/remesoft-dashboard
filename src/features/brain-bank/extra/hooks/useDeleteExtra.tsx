@@ -1,5 +1,5 @@
 // src/features/chapters/hooks/useDeleteChapter.ts
-import { useDeleteExtraMutation } from "../services/extraApi";
+import { useDeleteExtraMutation } from "../services";
 import ConfirmationToast from "@/components/ConfirmationToast";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
