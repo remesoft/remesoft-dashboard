@@ -7,7 +7,7 @@ import Menu from "./components/Menu";
 import dashboards from "./data/dashboards";
 import pagesData from "./data/pages";
 import { Book02FreeIcons, Books02FreeIcons, MultiplicationSignFreeIcons } from "@hugeicons/core-free-icons";
-import { useGetBooksQuery } from "../brain-bank/book/services/bookApi";
+import { useGetBooksQuery } from "../brain-bank/book/api";
 
 // Sidebar props
 interface SidebarProps {

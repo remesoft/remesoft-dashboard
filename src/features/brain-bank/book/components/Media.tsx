@@ -1,4 +1,4 @@
-import { BookEditFreeIcons, Delete02FreeIcons } from "@hugeicons/core-free-icons";
+import { BookEditFreeIcons } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import React from "react";
 

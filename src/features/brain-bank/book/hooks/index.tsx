@@ -1,9 +1,4 @@
-import {
-  useDeleteBookMutation,
-  useCreateBookMutation,
-  useUpdateBookMutation,
-  useGetBooksQuery,
-} from "../services/bookApi";
+import { useDeleteBookMutation, useCreateBookMutation, useUpdateBookMutation, useGetBooksQuery } from "../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import ConfirmationToast from "@/components/ConfirmationToast";

@@ -7,7 +7,7 @@ import Media from "./components/Media";
 import Input from "./components/Input";
 import Info from "./components/Info";
 import { useCreateBook, useUpdateBook } from "./hooks";
-import { useGetBookQuery } from "./services/bookApi";
+import { useGetBookQuery } from "./api";
 
 // 2. Component Definition
 const Book: React.FC = () => {

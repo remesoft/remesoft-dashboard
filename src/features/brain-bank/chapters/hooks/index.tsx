@@ -46,7 +46,7 @@ export const useDeleteChapter = () => {
         toast.dismiss(toastId);
         toast.success("Chapter deleted successfully!");
       } catch (err) {
-        console.error("❌ Failed to delete the chapter:", err);
+        console.error("Failed to delete the chapter:", err);
         toast.error("Failed to delete the chapter.");
         throw err;
       }
@@ -64,9 +64,11 @@ export const useDeleteChapter = () => {
   };
 };
 
+/*--------------------------------------------
+          UPDATE THE CHAPTER
+-------------------------------------------*/
 export const useUpdateChapter = () => {
   const [updateChapter, { isLoading, error, data }] = useUpdateChapterMutation();
-
   return {
     updateChapter,
     isLoading,

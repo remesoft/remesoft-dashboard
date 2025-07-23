@@ -1,6 +1,6 @@
 import { Edit04FreeIcons, TickDouble01FreeIcons } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 interface InputProps {
   name: string;

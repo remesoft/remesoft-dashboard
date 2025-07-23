@@ -1,3 +1,10 @@
+import {
+  Add01FreeIcons,
+  ArrowRight01FreeIcons,
+  BookOpen02FreeIcons,
+  Delete02FreeIcons,
+  MoreVerticalFreeIcons,
+} from "@hugeicons/core-free-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { ChapterProps } from "../types";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -8,18 +15,11 @@ import ActionPanel from "@/components/ActionPanel";
 import { useAddGroup } from "../../groups/hooks/useAddGroup";
 import { useDeleteChapter } from "../hooks";
 import { useUpdateChapter } from "../hooks";
-import {
-  Add01FreeIcons,
-  ArrowRight01FreeIcons,
-  BookOpen02FreeIcons,
-  Delete02FreeIcons,
-  MoreVerticalFreeIcons,
-} from "@hugeicons/core-free-icons";
-import { useGroupData } from "../hooks/useChapterGroups";
+import { useGetGroupsQuery } from "../services/chaptersApi";
 
 const Chapter: React.FC<ChapterProps> = ({ id, bookId, name }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { groups, isLoading: isGroupsLoading, error: groupsError, refetch } = useGroupData(isOpen ? id : 0);
+  const { data: groups, isLoading: isGroupsLoading, error: groupsError, refetch } = useGetGroupsQuery(isOpen ? id : 0);
   const { addGroup, isLoading: isAddLoading, error: addError } = useAddGroup();
   const { deleteChapter, isLoading: isChapterDeleteLoading } = useDeleteChapter();
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);

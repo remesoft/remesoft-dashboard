@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import PageInfo from "@/components/PageInfo";
 import Book from "@/features/brain-bank/book";
-import { useLocation, useParams } from "react-router";
-import { useGetBookQuery } from "@/features/brain-bank/book/services/bookApi";
+import { useParams } from "react-router";
 import Chapters from "@/features/brain-bank/chapters/Chapters";
 import Questions from "@/features/brain-bank/questions";
 import Extra from "@/features/brain-bank/extra";
+import PageInfo from "@/components/PageInfo";
+import { motion } from "framer-motion";
 
 const ManageBook: React.FC = () => {
   const pageTitle = "Dashboard";
@@ -15,9 +14,6 @@ const ManageBook: React.FC = () => {
     { label: "Brain Bank", link: "/brain-bank" },
     { label: "Create", link: "/create" },
   ];
-
-  const location = useLocation();
-  const isExtraRoute = location.pathname.endsWith("/extra");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

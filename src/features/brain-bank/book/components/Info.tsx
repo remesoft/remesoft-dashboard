@@ -13,7 +13,7 @@ import moment from "moment";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { useDeleteBook } from "../hooks";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ActionPanel from "@/components/ActionPanel";
 import { ActionPanelProps } from "@/types";
 
@@ -50,7 +50,6 @@ const Info: React.FC<InfoProps> = (props) => {
   const [openActionPanel, setOpenActionPanel] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-
   const actions: ActionPanelProps[] = [
     {
       label: "Download Book",
@@ -76,8 +75,16 @@ const Info: React.FC<InfoProps> = (props) => {
 
   return (
     <div className="relative px-4 pb-4">
-      <Template icon={Calendar03FreeIcons} property="Created At" value={moment(props.createdAt).format("MMMM Do YYYY")} />
-      <Template icon={CalendarUpload01FreeIcons} property="Updated At" value={moment(props.updatedAt).format("MMMM Do YYYY")} />
+      <Template
+        icon={Calendar03FreeIcons}
+        property="Created At"
+        value={moment(props.createdAt).format("MMMM Do YYYY")}
+      />
+      <Template
+        icon={CalendarUpload01FreeIcons}
+        property="Updated At"
+        value={moment(props.updatedAt).format("MMMM Do YYYY")}
+      />
       <Template icon={News01FreeIcons} property="Chapters" value={props.totalChapters} />
       <Template icon={LicenseFreeIcons} property="Group" value={props.totalGroups} />
       <Template icon={HelpSquareFreeIcons} property="Questions" value={props.totalQuestions} />
@@ -86,12 +93,14 @@ const Info: React.FC<InfoProps> = (props) => {
         <div className="absolute right-0 bottom-0 m-5">
           <button
             ref={buttonRef}
-            onClick={() => setOpenActionPanel(prev => !prev)}
+            onClick={() => setOpenActionPanel((prev) => !prev)}
             className="bg-background/50 hover:bg-background rounded-full p-2 transition"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Settings02FreeIcons} />
           </button>
-          {openActionPanel && <ActionPanel triggerRef={buttonRef} actions={actions} onClose={()=> setOpenActionPanel(false)}/>}
+          {openActionPanel && (
+            <ActionPanel triggerRef={buttonRef} actions={actions} onClose={() => setOpenActionPanel(false)} />
+          )}
         </div>
       )}
     </div>
