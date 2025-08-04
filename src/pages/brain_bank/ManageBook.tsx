@@ -54,7 +54,7 @@ const ManageBook: React.FC = () => {
       >
         <Book />
         <Chapters />
-        {groupId && <Questions />}
+        {groupId && <Questions key={groupId} />}
         {questionId && <Extra />}
       </motion.div>
     </div>
