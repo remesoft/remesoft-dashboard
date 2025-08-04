@@ -4,12 +4,17 @@ import { baseApi } from "../../api";
 export const extraApi = baseApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
+    /* --------------------------------------
+        Get Extra Information
+    --------------------------------------- */
     getExtra: builder.query<ExtraProps, number>({
       providesTags: ["extra"],
       query: (id) => `brain-bank/extras/${id}`,
     }),
 
-    // add extra information
+    /* --------------------------------------
+        Add Extra Information
+    --------------------------------------- */
     addExtra: builder.mutation<
       ExtraProps,
       {
@@ -26,6 +31,9 @@ export const extraApi = baseApi.injectEndpoints({
       }),
     }),
 
+    /* --------------------------------------
+        Update Extra Information
+    --------------------------------------- */
     updateExtra: builder.mutation<ExtraProps, Partial<ExtraProps>>({
       invalidatesTags: ["extra"],
       query: (body) => ({
@@ -35,7 +43,9 @@ export const extraApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // Inside endpoints
+    /* --------------------------------------
+        Delete Extra Information
+    --------------------------------------- */
     deleteExtra: builder.mutation<{ status: boolean }, number>({
       invalidatesTags: ["questions", "extra"],
       query: (id) => ({
@@ -47,4 +57,9 @@ export const extraApi = baseApi.injectEndpoints({
 });
 
 // Export hooks
-export const { useGetExtraQuery, useAddExtraMutation, useUpdateExtraMutation, useDeleteExtraMutation } = extraApi;
+export const {
+  useGetExtraQuery, // Get Extra Information Hook
+  useAddExtraMutation, // Add Extra Information Hook
+  useUpdateExtraMutation, // Update Extra Information Hook
+  useDeleteExtraMutation, // Delete Extra Information Hook
+} = extraApi;

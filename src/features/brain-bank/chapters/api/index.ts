@@ -58,10 +58,11 @@ export const chaptersApi = baseApi.injectEndpoints({
   }),
 });
 
+// Export Chapters Hooks
 export const {
-  useGetChaptersQuery,
-  useGetGroupsQuery,
-  useAddChapterMutation,
-  useDeleteChapterMutation,
-  useUpdateChapterMutation,
+  useGetChaptersQuery, // Get Chapter Information Hook
+  useGetGroupsQuery, // Get Group Information Hook
+  useAddChapterMutation, // Add Chapter Information Hook
+  useDeleteChapterMutation, // Delete Chapter Information Hook
+  useUpdateChapterMutation, // Update Chapter Information Hook
 } = chaptersApi;

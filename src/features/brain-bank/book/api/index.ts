@@ -14,19 +14,25 @@ export interface BookType {
 export const bookApi = baseApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
-    // get book query
+    /* -------------------------------------
+            GET BOOK QUERY
+    -------------------------------------- */
     getBook: builder.query<BookType, number>({
       query: (id) => `brain-bank/books/${id}`,
       providesTags: (result, error, id) => [{ type: "books", id }],
     }),
 
-    // get books query
+    /* -------------------------------------
+            GET BOOKS QUERY
+    -------------------------------------- */
     getBooks: builder.query<BookType[], void>({
       query: () => `brain-bank/books`,
       providesTags: ["books"],
     }),
 
-    // create book query
+    /* -------------------------------------
+            CREATE BOOK QUERY
+    -------------------------------------- */
     createBook: builder.mutation<BookType, FormData>({
       query: (formData) => ({
         url: "brain-bank/books/create",
@@ -36,7 +42,9 @@ export const bookApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // update book information
+    /* -------------------------------------
+            UPDATE BOOK QUERY
+    -------------------------------------- */
     updateBook: builder.mutation<BookType, { formData: FormData; bookId: number }>({
       query: ({ formData, bookId }) => ({
         url: `brain-bank/books/${bookId}`,
@@ -45,7 +53,9 @@ export const bookApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // delete book query
+    /* -------------------------------------
+            DELETE BOOK QUERY
+    -------------------------------------- */
     deleteBook: builder.mutation<{ status: boolean }, number>({
       query: (id) => ({
         url: `brain-bank/books/${id}`,
@@ -55,10 +65,11 @@ export const bookApi = baseApi.injectEndpoints({
   }),
 });
 
+// Export Books Hooks
 export const {
-  useCreateBookMutation,
-  useGetBookQuery,
-  useGetBooksQuery,
-  useUpdateBookMutation,
-  useDeleteBookMutation,
+  useGetBookQuery, // Get Book Information Hook
+  useGetBooksQuery, // Get Book Information Hook
+  useCreateBookMutation, // Create Book Information Hook
+  useUpdateBookMutation, // Update Book Information Hook
+  useDeleteBookMutation, // Delete Book Information Hook
 } = bookApi;

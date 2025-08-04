@@ -5,6 +5,7 @@ export const groupApi = baseApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     // GET groups by some ID
+
     getGroup: builder.query<{ id: number; name: string }, number>({
       query: (id) => {
         return `brain-bank/groups/${id}`;
