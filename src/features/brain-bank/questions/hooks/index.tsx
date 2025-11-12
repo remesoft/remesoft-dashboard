@@ -22,7 +22,8 @@ export const useDeleteQuestion = () => {
       }
     };
 
-    toast(<ConfirmationToast message={message} onConfirm={onConfirm} />, { toastId });
+    const toastElement = <ConfirmationToast toastId={toastId} message={message} onConfirm={onConfirm} />;
+    toast(toastElement, { toastId });
   };
 
   return {

@@ -13,7 +13,7 @@ const Group: React.FC<GroupProps> = ({ id, label }) => {
   return (
     <li className="list-none">
       <NavLink
-        to={`/brain-bank/books/${bookId}/groups/${id}`}
+        to={`/brain-bank/book/${bookId}/group/${id}`}
         className={({ isActive }) =>
           `flex rounded-sm py-2 pl-9 ${isActive ? "bg-component outline-border/20 outline" : ""} hover:bg-component/40 hover:outline-border/30`
         }

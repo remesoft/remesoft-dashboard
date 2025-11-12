@@ -3,6 +3,7 @@ import CreateBook from "@/pages/brain_bank/CreateBook";
 import ManageBook from "@/pages/brain_bank/ManageBook";
 import Dashboard from "@/layout/Dashboard";
 import BBDashboard from "@/pages/brain_bank/BBDashboard";
+import Notification from "@/pages/brain_bank/ManageNotification";
 
 /*----------------------------------
       Application Routes
@@ -17,15 +18,23 @@ const BrainBankRoutes = [
     element: <CreateBook />,
   },
   {
-    path: "/brain-bank/books/:bookId",
+    path: "/brain-bank/notification",
+    element: <Notification />,
+  },
+  {
+    path: "/brain-bank/book/:bookId",
     element: <ManageBook />,
   },
   {
-    path: "/brain-bank/books/:bookId/groups/:groupId",
+    path: "/brain-bank/book/:bookId/group/:groupId",
     element: <ManageBook />,
   },
   {
-    path: "/brain-bank/books/:bookId/groups/:groupId/questions/:questionId",
+    path: "/brain-bank/book/:bookId/group/:groupId/question/:questionId",
+    element: <ManageBook />,
+  },
+  {
+    path: "/brain-bank/book/:bookId/group/:groupId/question/:questionId",
     element: <ManageBook />,
   },
 ];

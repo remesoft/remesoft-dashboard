@@ -31,7 +31,7 @@ export const useAddChapter = () => {
 };
 
 /*--------------------------------------------
-          CREATE NEW CHAPTER
+          DELETE THE CHAPTER
 -------------------------------------------*/
 export const useDeleteChapter = () => {
   const [deleteChapterApi, { isLoading, error }] = useDeleteChapterMutation();
@@ -52,9 +52,8 @@ export const useDeleteChapter = () => {
       }
     };
 
-    toast(<ConfirmationToast message={message} onConfirm={onConfirm} onCancel={() => toast.dismiss(toastId)} />, {
-      toastId,
-    });
+    const toastElement = <ConfirmationToast toastId={toastId} message={message} onConfirm={onConfirm} />;
+    toast(toastElement, { toastId });
   };
 
   return {

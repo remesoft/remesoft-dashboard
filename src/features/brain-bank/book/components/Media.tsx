@@ -22,14 +22,14 @@ const Media: React.FC<MediaProps> = ({ preview, onChange, setSelectedImage, setD
   };
 
   return (
-    <div className="bg-background/50 text-secondary/50 hover:bg-background/80 h-72 w-82 rounded-md p-2 transition">
+    <div className="bg-background/50 text-secondary/50 hover:bg-background/80 h-82 w-82 rounded-md p-2 transition">
       <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} id="fileInput" />
       <label
         htmlFor="fileInput"
         className="border-border flex h-full cursor-pointer flex-col items-center justify-center rounded-md border border-dashed"
       >
         {preview ? (
-          <div className="bg-background/50 text-secondary/50 hover:bg-background/80 flex h-72 w-82 items-center justify-center rounded-md p-2 transition">
+          <div className="text-secondary/50 hover:bg-background/80 flex h-72 w-82 items-center justify-center rounded-md p-2 transition">
             <img className="h-[90%] shadow-md" src={preview} alt="book cover" />
           </div>
         ) : (

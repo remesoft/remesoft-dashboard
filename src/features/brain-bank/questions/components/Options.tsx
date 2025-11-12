@@ -37,7 +37,7 @@ const Options: React.FC<OptionsProps> = ({ index, id, selected, onSelect, labels
       label: hasExtra ? "Update Extra" : "Add Extra",
       icon: hasExtra ? PencilEdit01FreeIcons : Add01FreeIcons,
       onClick: () => {
-        navigate(`/brain-bank/books/${bookId}/groups/${groupId}/questions/${id}`);
+        navigate(`/brain-bank/book/${bookId}/group/${groupId}/question/${id}`);
         setOpen(false);
       },
     },

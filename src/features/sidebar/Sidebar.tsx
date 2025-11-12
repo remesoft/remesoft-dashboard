@@ -31,9 +31,25 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setSidebar }) => {
         id: 1000 + index,
         label: book.name, // or book.name
         icon: Book02FreeIcons,
-        link: `${currentDashboard}/books/${book.id}`,
+        link: "#",
         isActive: false,
         onClick: () => console.log("Clicked Book:", book.name),
+        menu: [
+          {
+            id: 2,
+            label: "Overview",
+            icon: Books02FreeIcons,
+            link: `${currentDashboard}/book/${book.id}`,
+            isActive: false,
+          },
+          {
+            id: 2,
+            label: "Questions",
+            icon: Books02FreeIcons,
+            link: `${currentDashboard}/book/${book.id}/question`,
+            isActive: false,
+          },
+        ],
       })) ?? [];
 
     return [...matchedPages, ...dynamicPages];

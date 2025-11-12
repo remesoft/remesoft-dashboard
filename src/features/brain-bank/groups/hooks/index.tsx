@@ -54,9 +54,8 @@ export const useDeleteGroup = () => {
       }
     };
 
-    toast(<ConfirmationToast message={message} onConfirm={onConfirm} onCancel={() => toast.dismiss(toastId)} />, {
-      toastId,
-    });
+    const toastElement = <ConfirmationToast toastId={toastId} message={message} onConfirm={onConfirm} />;
+    toast(toastElement, { toastId });
   };
 
   return {

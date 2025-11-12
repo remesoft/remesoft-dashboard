@@ -1,15 +1,19 @@
 import React from "react";
+import { toast } from "react-toastify";
 
-interface ConfirmationToastProps {
+interface PropsType {
+  toastId: string;
   message?: string;
   onConfirm: () => void;
-  onCancel?: () => void;
 }
 
-const ConfirmationToast: React.FC<ConfirmationToastProps> = ({ message = "Are you sure?", onConfirm, onCancel }) => {
+const ConfirmationToast: React.FC<PropsType> = (props) => {
+  const { toastId, message, onConfirm } = props;
+  const onCancel = () => toast.dismiss(toastId);
+
   return (
     <div className="w-[360px] max-w-full rounded-lg border-gray-200 bg-white">
-      <p className="text-sm text-gray-800">{message}</p>
+      <p className="text-sm text-gray-800">{message && "Are you sure?"}</p>
       <div className="mt-4 flex justify-end gap-2">
         <button
           onClick={onCancel}

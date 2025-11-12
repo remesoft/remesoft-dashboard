@@ -29,6 +29,13 @@ const pages: PagesProps[] = [
         link: "/brain-bank/create-book",
         isActive: false,
       },
+      {
+        id: 3,
+        label: "Notification",
+        icon: Books02FreeIcons,
+        link: "/brain-bank/notification",
+        isActive: false,
+      },
     ],
   },
   {

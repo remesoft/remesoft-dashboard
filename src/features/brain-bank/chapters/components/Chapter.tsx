@@ -12,8 +12,7 @@ import { toast } from "react-toastify";
 import Group from "../../groups/Group";
 import { ActionPanelProps } from "@/types";
 import ActionPanel from "@/components/ActionPanel";
-import { useDeleteChapter } from "../hooks";
-import { useUpdateChapter } from "../hooks";
+import { useDeleteChapter, useUpdateChapter } from "../hooks";
 import { useGetGroupsQuery } from "../api";
 import { useAddGroup } from "../../groups/hooks";
 

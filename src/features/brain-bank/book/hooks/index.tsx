@@ -80,9 +80,8 @@ export const useDeleteBook = () => {
     };
 
     // delete after confirm
-    toast(<ConfirmationToast message={message} onConfirm={onConfirm} onCancel={() => toast.dismiss(toastId)} />, {
-      toastId,
-    });
+    const modalElement = <ConfirmationToast toastId={toastId} message={message} onConfirm={onConfirm} />;
+    toast(modalElement, { toastId });
   };
 
   return {
